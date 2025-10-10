@@ -1,0 +1,110 @@
+# ============================
+# .NET / C# Build Artifacts
+# ============================
+bin/
+obj/
+out/
+*.exe
+*.dll
+*.pdb
+*.cache
+*.log
+*.vspscc
+*.vscode/
+.vs/
+*.user
+*.suo
+*.dbmdl
+*.bak
+*.ncb
+*.opendb
+*.swp
+*.DS_Store
+Thumbs.db
+_ReSharper*/
+*.DotSettings.user
+*.ide/
+*.nupkg
+*.snupkg
+
+# ============================
+# Configuration and Secrets
+# ============================
+appsettings.Development.json
+appsettings.Local.json
+appsettings.*.json
+secrets.json
+.env
+.env.*
+.env.local
+.env.development
+.env.production
+
+# ============================
+# Docker / Containers
+# ============================
+docker-compose.override.yml
+docker-compose.*.yml
+.docker/
+*.pid
+*.seed
+*.tar
+*.log
+**/pgdata/
+**/rabbitmq_data/
+**/redis_data/
+
+# ============================
+# Node / Vue / Vite Frontend
+# ============================
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/.output/
+frontend/.nuxt/
+frontend/.cache/
+*.local
+*.map
+
+# ============================
+# OS / IDE
+# ============================
+.idea/
+*.iml
+*.code-workspace
+*.orig
+*.bak
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# ============================
+# Test / Coverage
+# ============================
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+*.testresults
+*.trx
+*.cov
+
+# ============================
+# Build & Publish Artifacts
+# ============================
+publish/
+artifacts/
+logs/
+*.publishsettings
+*.azurePubxml
+
+# ============================
+# Misc
+# ============================
+*.json.backup
+*.sqlite
+*.sqlite3
+*.db
+*.sql
