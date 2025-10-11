@@ -1,110 +1,118 @@
-# ============================
-# .NET / C# Build Artifacts
-# ============================
+
 bin/
 obj/
-out/
-*.exe
-*.dll
-*.pdb
-*.cache
-*.log
-*.vspscc
-*.vscode/
+[Bb]uild/
+[Ll]og/
+[Ll]ogs/
+TestResults/
+.vscode/
+.idea/
 .vs/
 *.user
 *.suo
-*.dbmdl
-*.bak
-*.ncb
-*.opendb
+*.userosscache
+*.sln.docstates
 *.swp
-*.DS_Store
-Thumbs.db
-_ReSharper*/
-*.DotSettings.user
-*.ide/
-*.nupkg
-*.snupkg
+*.swo
 
-# ============================
-# Configuration and Secrets
-# ============================
+
 appsettings.Development.json
 appsettings.Local.json
 appsettings.*.json
 secrets.json
-.env
+launchSettings.json
+
+
+*.tmp
+*.temp
+*.bak
+*.log
+*.db
+*.sqlite
+*.pid
+*.seed
+*.lock
+*.cache
+*.zip
+*.tar.gz
+*.tar
+*.7z
+*.rar
+*.DS_Store
+Thumbs.db
+
+docker-compose.override.yml
+.docker/
+Dockerfile.local
+*.env
 .env.*
 .env.local
 .env.development
 .env.production
 
-# ============================
-# Docker / Containers
-# ============================
-docker-compose.override.yml
-docker-compose.*.yml
-.docker/
-*.pid
-*.seed
-*.tar
-*.log
-**/pgdata/
-**/rabbitmq_data/
-**/redis_data/
 
-# ============================
-# Node / Vue / Vite Frontend
-# ============================
-frontend/node_modules/
-frontend/dist/
-frontend/.vite/
-frontend/.output/
-frontend/.nuxt/
-frontend/.cache/
-*.local
-*.map
+/data/
+redis-data/
+/rabbitmq-data/
+/postgres-data/
+/db-data/
+mnt/
+volumes/
+*.rdb
+*.aof
 
-# ============================
-# OS / IDE
-# ============================
+
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+.pnpm-store/
+dist/
+build/
+coverage/
+.cache/
+
+
+_ReSharper*/
+*.DotSettings.user
+*.DotSettings
 .idea/
-*.iml
-*.code-workspace
-*.orig
-*.bak
-*.tmp
-*.temp
-*.swp
-*.swo
-*~
+.idea_modules/
 
-# ============================
-# Test / Coverage
-# ============================
-TestResults/
+
 coverage/
 *.coverage
 *.coveragexml
-*.testresults
+*.testresult
 *.trx
-*.cov
+*.nunit.xml
 
-# ============================
-# Build & Publish Artifacts
-# ============================
-publish/
-artifacts/
-logs/
-*.publishsettings
-*.azurePubxml
 
-# ============================
-# Misc
-# ============================
-*.json.backup
-*.sqlite
-*.sqlite3
-*.db
-*.sql
+/.gitlab-ci.yml
+/.github/
+.github/workflows/temp/
+.github/workflows/*.local.yml
+
+
+/CineFlow.sln.DotSettings
+/local/
+temp/
+cache/
+config/local/
+*.pfx
+*.key
+*.pem
+*.crt
+*.pub
+*.cert
+*.bak.json
+*.generated.cs
+
+
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+*.url
+Icon?

@@ -9,7 +9,6 @@ namespace Cineflow.models.cinema
         private string? tipo_sala { get; set; }
         private int capacidade { get; set; }
         private int assentos_ocupados { get; set; }
-        private decimal receita_total { get; set; }
 
     }
 }
