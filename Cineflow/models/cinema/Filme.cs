@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cineflow.models.cinema
 {
@@ -25,7 +26,7 @@ namespace Cineflow.models.cinema
         [Required]
         private string? sinopse { get; set; }
         [Required]
-        private string? elenco { get; set; }
+        private List<Elenco> elenco{ get; set; } = new List<Elenco>();
         [Required]
         private string? produtora { get; set; }
         [Required]
