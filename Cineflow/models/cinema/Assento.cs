@@ -11,7 +11,7 @@ namespace Cineflow.models.cinema
         private Sala? sala { get; set; }
         private char? fila { get; set; }
         private int? numero { get; set; }
-        private bool ocupado { get; set; }
+        private bool status { get; set; }
 
     }
 }

@@ -13,11 +13,13 @@ namespace Cineflow.models.cinema
         [Required]
         private Pessoa? cliente { get; set; }
         [Required]
-
-
         private string? Id_reserva{ get; set; }
         [Required]
         private Reserva? reserva { get; set; }
+        [Required]
+        private string? id_filme { get; set; }
+        [Required]
+        private Filme? filme { get; set; }
         [Required]
         private int nota { get; set; } // de 1 a 5
         private string? comentario { get; set; }

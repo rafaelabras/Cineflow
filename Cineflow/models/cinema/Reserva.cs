@@ -17,7 +17,7 @@ namespace Cineflow.models.cinema
         [Required]
         private Sessão? sessao { get; set; }
         [Required]
-        private Boolean? confirmada { get; set; } = false;
+        private string? confirmada { get; set; } 
         [Required]
         private DateTime? data_reserva { get; set; } = DateTime.Now;
 

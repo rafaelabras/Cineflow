@@ -18,7 +18,13 @@ namespace Cineflow.models.cinema
         [Required]
         private decimal preco { get; set; }
         [Required]
+        private string? codigo_qr { get; set; }
+        [Required]
         private DateTime? data_gerado { get; set; } = DateTime.Now;
+        [Required]
+        private DateTime? data_validacao { get; set; } = DateTime.Now;
+        [Required]
+        private Boolean? utilizado { get; set; } = false;
 
 
     }
