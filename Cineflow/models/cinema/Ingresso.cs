@@ -17,6 +17,8 @@ namespace Cineflow.models.cinema
         private Reserva? reserva { get; set; }
         [Required]
         private decimal preco { get; set; }
+        [Required]
+        private DateTime? data_gerado { get; set; } = DateTime.Now;
 
 
     }

@@ -15,6 +15,8 @@ namespace Cineflow.models.cinema
         private int? Id_sala { get; set; }
         private Sala? sala { get; set; }
         [Required]
+        private DateTime? data_sessao { get; set; }
+        [Required]
         private DateTime? horario_inicio { get; set; }
         [Required]
         private DateTime? horario_fim { get; set; } = horario_inico + duracao;

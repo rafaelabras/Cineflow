@@ -10,6 +10,8 @@ namespace Cineflow.models.cinema
         [Required]
         private string? nome { get; set; }
         [Required]
+        private string? papel { get; set; }
+        [Required]
         private string? genero { get; set; }
         [Required]
         private DateTime? data_nascimento { get; set; }

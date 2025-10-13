@@ -1,0 +1,123 @@
+/*** scripit para iniciar o POSTGRES***/
+
+CREATE TABLE IF NOT EXISTS cliente (
+    CPF VARCHAR(64) PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    data_nascimento DATETIME NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS funcionario (
+    CPF VARCHAR(64) PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    data_admissao, DATETIME,
+    data_demissao DATETIME,
+    cargo VARCHAR(50) NOT NULL,
+    salario NUMERIC(10, 2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS filme (
+    ID SERIAL PRIMARY KEY,
+    nome_file VARCHAR(100) NOT NULL,
+    sinopse VARCHAR(1500) NOT NULL,
+    genero VARCHAR(50) NOT NULL,
+    duracao DATETIME NOT NULL,
+    classificacao_etaria INT NOT NULL,
+    idioma VARCHAR(50) NOT NULL,
+    pais_origem VARCHAR(50) NOT NULL,
+    num_avaliacoes INT DEFAULT 0,
+    media_avaliacoes NUMERIC(3, 2) DEFAULT 0.0,
+    produtar VARCHAR(50) NOT NULL,
+    data_lancamento DATETIME NOT NULL,
+    diretor VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS elenco(
+    ID SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    papel VARCHAR(50) NOT NULL,
+    genero VARCHAR(20) NOT NULL,
+    data_nascimento DATETIME NOT NULL,
+    nacionalidade VARCHAR(50) NOT NULL,
+);
+
+CREATE TABLE IF NOT EXISTS filme_elenco (
+    filme_id INT REFERENCES filme(ID) ON DELETE CASCADE ON UPDATE CASCADE,
+    elenco_id INT REFERENCES elenco(ID) ON DELETE CASCADE ON UPDATE CASCADE,
+    PRIMARY KEY (filme_id, elenco_id)
+);
+
+CREATE TABLE IF NOT EXISTS sala (
+    ID SERIAL PRIMARY KEY,
+    tipo_sala VARCHAR(50) NOT NULL,
+    capacidade INT NOT NULL,
+    assentos_ocupados INT DEFAULT 0,
+);
+
+CREATE TABLE IF NOT EXISTS assento(
+    ID SERIAL PRIMARY KEY,
+    sala_id INT REFERENCES sala(ID) ON DELETE CASCADE ON UPDATE CASCADE,
+    fila CHAR(1) NOT NULL,
+    numero INT NOT NULL,
+    ocupado BOOLEAN DEFAULT FALSE,
+);
+
+CREATE TABLE IF NOT EXISTS sessao (
+    ID VARCHAR(64) PRIMARY KEY,
+    filme_id INT REFERENCES filme(ID) ON DELETE CASCADE ON UPDATE CASCADE,
+    sala_id INT REFERENCES sala(ID) ON DELETE CASCADE ON UPDATE CASCADE,
+    data_sessao DATETIME NOT NULL,
+    horario_inicio DATETIME NOT NULL,
+    horario_fim DATETIME NOT NULL,
+    preco_sessao NUMERIC(10, 2) NOT NULL,
+    receita_total NUMERIC(10, 2) DEFAULT 0.0,
+    idioma_audio VARCHAR(20) NOT NULL,
+    idioma_legenda VARCHAR(20) NOT NULL,
+);
+
+
+CREATE TABLE IF NOT EXISTS reserva(
+    ID VARCHAR(64) PRIMARY KEY
+    cliente_CPF VARCHAR(64) REFERENCES cliente(CPF) ON DELETE CASCADE ON UPDATE CASCADE,
+    sessao_id VARCHAR(64) REFERENCES sessao(ID) ON DELETE CASCADE ON UPDATE CASCADE,
+    confirmada BOOLEAN DEFAULT FALSE,
+    data_reserva DATETIME NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS ingresso (
+    ID VARCHAR(64) PRIMARY KEY,
+    sessao_id VARCHAR(64) REFERENCES sessao(ID) ON DELETE CASCADE ON UPDATE CASCADE,
+    reserva_id VARCHAR(64) REFERENCES reserva(ID) ON DELETE CASCADE ON UPDATE CASCADE,
+    assento_id INT REFERENCES assento(ID) ON DELETE CASCADE ON UPDATE CASCADE,
+    preco_pago NUMERIC(10, 2) NOT NULL,
+    data_gerado DATETIME NOT NULL,
+    utilizado BOOLEAN DEFAULT FALSE
+);
+
+
+CREATE TABLE IF NOT EXISTS avaliacao(
+    ID SERIAL PRIMARY KEY,
+    cliente_CPF VARCHAR(64) REFERENCES cliente(CPF) ON DELETE CASCADE ON UPDATE CASCADE,
+    reserva_id VARCHAR(64) REFERENCES reserva(ID) ON DELETE CASCADE ON UPDATE CASCADE,
+    nota INT CHECK (nota >= 0 AND nota <= 5) NOT NULL,
+    comentario VARCHAR(300),
+    data_avaliacao DATETIME NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS pagamento (
+    ID VARCHAR(64) PRIMARY KEY,
+    reserva_id VARCHAR(64) REFERENCES reserva(ID) ON DELETE CASCADE ON UPDATE CASCADE,
+    valor_pago NUMERIC(10, 2) NOT NULL,
+    metodo_pagamento VARCHAR(50) NOT NULL,
+    pago BOOLEAN DEFAULT FALSE,
+    transacao_gateway VARCHAR(100),
+    data_pagamento DATETIME NOT NULL
+);
+
+
