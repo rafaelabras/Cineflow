@@ -6,13 +6,13 @@ namespace Cineflow.models.cinema
     public class Sessão
     {
         [Key]
-        [Required
+        [Required]
        private Guid ID { get; set; } = new Guid();
         [Required]
-        private string? Id_filme { get; set; }
+        private int? Id_filme { get; set; } // mesmo utilizando o dapper de ORM é interessante manter propriedades de navegação pois filme e sala nunca seriam nulos praticamente
         private Filme? filme { get; set; }
         [Required]
-        private string? Id_sala { get; set; }
+        private int? Id_sala { get; set; }
         private Sala? sala { get; set; }
         [Required]
         private DateTime horario_inicio { get; set; }

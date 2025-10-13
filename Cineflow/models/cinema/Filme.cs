@@ -8,7 +8,7 @@ namespace Cineflow.models.cinema
 
         [Key]
         [Required]
-        private Guid ID { get; set; } = new Guid();
+        private int ID { get; set; } 
         [Required]
         private string? nome_filme { get; set; }
         [Required]
@@ -25,8 +25,6 @@ namespace Cineflow.models.cinema
         private string? idioma { get; set; }
         [Required]
         private string? sinopse { get; set; }
-        [Required]
-        private List<Elenco> elenco{ get; set; } = new List<Elenco>();
         [Required]
         private string? produtora { get; set; }
         [Required]
