@@ -8,11 +8,12 @@ CREATE TABLE IF NOT EXISTS pessoa (
     telefone VARCHAR(15),
     password_hash VARCHAR(255) NOT NULL,
     data_nascimento DATE NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS cliente(
-    cpf VARCHAR(11) PRIMARY KEY REFERENCES pessoa(cpf) ON DELETE CASCADE ON UPDATE CASCADE,
+    cpf VARCHAR(11) PRIMARY KEY REFERENCES pessoa(cpf) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS funcionario (
@@ -20,20 +21,20 @@ CREATE TABLE IF NOT EXISTS funcionario (
     data_admissao DATE,
     data_demissao DATE,
     cargo VARCHAR(50) NOT NULL,
-    salario NUMERIC(10, 2) NOT NULL,
+    salario NUMERIC(10, 2) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS filme (
     id SERIAL PRIMARY KEY,
-    nome_file VARCHAR(100) NOT NULL,
+    nome_filme VARCHAR(100) NOT NULL,
     sinopse VARCHAR(1500) NOT NULL,
     genero VARCHAR(50) NOT NULL,
-    duracao DATETIME NOT NULL,
+    duracao INT NOT NULL,
     classificacao_etaria INT NOT NULL,
     idioma VARCHAR(50) NOT NULL,
     pais_origem VARCHAR(50) NOT NULL,
-    produtar VARCHAR(50) NOT NULL,
-    data_lancamento DATETIME NOT NULL,
+    produtor VARCHAR(50) NOT NULL,
+    data_lancamento DATE NOT NULL,
     diretor VARCHAR(50) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -66,7 +67,7 @@ CREATE TABLE IF NOT EXISTS assento(
     fila CHAR(1) NOT NULL,
     numero INT NOT NULL,
     status VARCHAR(20) NOT NULL DEFAULT 'disponivel'
-    CHECK (status IN ('disponivel', 'reservado', 'ocupado')),
+    CHECK (status IN ('disponivel', 'reservado', 'ocupado'))
 );
 
 CREATE TABLE IF NOT EXISTS sessao (
@@ -87,7 +88,7 @@ CREATE TABLE IF NOT EXISTS reserva(
     sessao_id VARCHAR(64) REFERENCES sessao(id) ON DELETE CASCADE ON UPDATE CASCADE,
     status VARCHAR(20) NOT NULL DEFAULT 'pendente'
     CHECK (status IN ('pendente', 'paga', 'cancelada', 'expirado')),
-    data_reserva TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    data_reserva TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS ingresso (
@@ -108,14 +109,14 @@ CREATE TABLE IF NOT EXISTS avaliacao(
     filme_id INT NOT NULL REFERENCES filme(id) ON DELETE CASCADE, 
     cliente_cpf VARCHAR(11) NOT NULL REFERENCES pessoa(cpf) ON DELETE CASCADE,
     reserva_id VARCHAR(64) NOT NULL REFERENCES reserva(id) ON DELETE CASCADE,
-    nota INT NOT NULL CHECK (nota >= 1 AND nota <= 5) NOT NULL,
+    nota INT CHECK (nota >= 1 AND nota <= 5) NOT NULL,
     comentario VARCHAR(300),
-    data_avaliacao DATETIME NOT NULL
+    data_avaliacao TIMESTAMP NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS pagamento (
     id VARCHAR(64) PRIMARY KEY,
-    reserva_id VARCHAR(64) NOT NULL REFERENCES reserva(id) ON DELETE CASCADE ON,
+    reserva_id VARCHAR(64) NOT NULL REFERENCES reserva(id) ON DELETE CASCADE,
     valor_pago NUMERIC(10, 2) NOT NULL,
     metodo_pagamento VARCHAR(50) NOT NULL,
     status VARCHAR(20) NOT NULL DEFAULT 'pendente'
@@ -130,18 +131,18 @@ CREATE TABLE IF NOT EXISTS pagamento (
 
 CREATE INDEX idx_cliente_cpf ON cliente(cpf);
 CREATE INDEX idx_funcionario_cpf ON funcionario(cpf);
-CREATE INDEX idx_elenco_filme_filme ON elenco_filme(id_filme);
-CREATE INDEX idx_elenco_filme_elenco ON elenco_filme(id_elenco);
-CREATE INDEX idx_assento_sala ON assento(id_sala);
-CREATE INDEX idx_sessao_filme ON sessao(id_filme);
-CREATE INDEX idx_sessao_sala ON sessao(id_sala);
-CREATE INDEX idx_reserva_cliente ON reserva(cpf_cliente);
-CREATE INDEX idx_reserva_sessao ON reserva(id_sessao);
-CREATE INDEX idx_pagamento_reserva ON pagamento(id_reserva);
-CREATE INDEX idx_ingresso_reserva ON ingresso(id_reserva);
-CREATE INDEX idx_ingresso_sessao ON ingresso(id_sessao);
-CREATE INDEX idx_avaliacao_filme ON avaliacao(id_filme);
-CREATE INDEX idx_avaliacao_cliente ON avaliacao(cpf_cliente);
+CREATE INDEX idx_filme_elenco_filme ON filme_elenco(filme_id);
+CREATE INDEX idx_filme_elenco_elenco ON filme_elenco(elenco_id);
+CREATE INDEX idx_assento_sala ON assento(sala_id);
+CREATE INDEX idx_sessao_filme ON sessao(filme_id);
+CREATE INDEX idx_sessao_sala ON sessao(sala_id);
+CREATE INDEX idx_reserva_cliente ON reserva(cliente_cpf);
+CREATE INDEX idx_reserva_sessao ON reserva(sessao_id);
+CREATE INDEX idx_pagamento_reserva ON pagamento(reserva_id);
+CREATE INDEX idx_ingresso_reserva ON ingresso(reserva_id);
+CREATE INDEX idx_ingresso_sessao ON ingresso(sessao_id);
+CREATE INDEX idx_avaliacao_filme ON avaliacao(filme_id);
+CREATE INDEX idx_avaliacao_cliente ON avaliacao(cliente_cpf);
 
 
 /** indice para buscas comuns**/
@@ -154,13 +155,12 @@ CREATE INDEX idx_pagamento_status ON pagamento(status);
 CREATE INDEX idx_ingresso_qr ON ingresso(codigo_qr);
 
 
-
 COMMENT ON TABLE pessoa IS 'Tabela base para clientes e funcionários';
 COMMENT ON TABLE cliente IS 'Clientes do cinema que podem fazer reservas';
 COMMENT ON TABLE funcionario IS 'Funcionários do cinema';
 COMMENT ON TABLE filme IS 'Catálogo de filmes disponíveis';
 COMMENT ON TABLE elenco IS 'Atores e atrizes';
-COMMENT ON TABLE elenco_filme IS 'Relacionamento N:N entre filmes e elenco';
+COMMENT ON TABLE filme_elenco IS 'Relacionamento N:N entre filmes e elenco';
 COMMENT ON TABLE sala IS 'Salas do cinema';
 COMMENT ON TABLE assento IS 'Assentos de cada sala';
 COMMENT ON TABLE sessao IS 'Sessões/horários dos filmes';

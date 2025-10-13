@@ -16,7 +16,7 @@ namespace Cineflow.models.cinema
         [Required]
         private string? genero { get; set; }
         [Required]
-        private DateTime duracao { get; set; }
+        private int duracao { get; set; }
         [Required]
         private DateTime data_lancamento { get; set; }
         [Required]
