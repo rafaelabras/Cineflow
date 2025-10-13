@@ -15,8 +15,9 @@ namespace Cineflow.models.pessoas
         [Required]
         private string? senhaHash { get; set; }
         [Required]
-        private DateTime data_nascimento { get; set; }
-        private DateTime idade { get; set; }
+        private DateTime? data_nascimento { get; set; }
+        [Required]
+        private DateTime? idade { get; set; }
         [Required]
         private string? telefone { get; set; }
 
