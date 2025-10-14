@@ -1,19 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Cineflow.models.pessoas
+namespace Cineflow.dtos.pessoas
 {
-    public class Pessoa
+    public class CriarPessoaDto
     {
         [Key]
         [Required]
-        private string Id { get; set; } // o id é o cpf
+        internal string Id { get; set; } // o id é o cpf
         [Required]
         private string? name { get; set; }
         [Required]
         [EmailAddress]
         private string? email { get; set; }
         [Required]
-        private string? senhaHash { get; set; }
+        private string? senha { get; set; }
         [Required]
         private DateTime? data_nascimento { get; set; }
         [Required]

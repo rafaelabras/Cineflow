@@ -5,7 +5,6 @@
         public static void AddBuilderExtensions(this WebApplicationBuilder builder)
         {
 
-
         }
 
     }
