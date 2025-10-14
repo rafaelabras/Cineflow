@@ -13,7 +13,7 @@ namespace Cineflow.dtos.pessoas
         [EmailAddress]
         private string? email { get; set; }
         [Required]
-        private string? senha { get; set; }
+        internal string? senha { get; set; }
         [Required]
         private DateTime? data_nascimento { get; set; }
         [Required]
