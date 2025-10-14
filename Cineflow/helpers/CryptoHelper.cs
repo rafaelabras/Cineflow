@@ -8,45 +8,61 @@ namespace Cineflow.utils
     public class CryptoHelper
     {
         string aesKey = Environment.GetEnvironmentVariable("AES_KEY");
-        string aesIV = Environment.GetEnvironmentVariable("AES_IV");
+        const int IVLength = 16; // AES block size em bytes
+        private readonly ILogger<CryptoHelper> _logger;
+        public CryptoHelper(ILogger<CryptoHelper> logger)
+        {
+            _logger = logger;
+        }
+
         public string EncryptAesCpf(CriarPessoaDto Pessoa)
         {
-            var encryptedCpf = Encrypt(Pessoa.Id, Encoding.UTF8.GetBytes(aesKey), Encoding.UTF8.GetBytes(aesIV));
+            var encryptedCpf = Encrypt(Pessoa.Id, Encoding.UTF8.GetBytes(aesKey));
             return encryptedCpf;
         }
 
         public string DecryptAesCpf(string Cpf)
         {
-            var decryptedCpf = Decrypt(Cpf, Encoding.UTF8.GetBytes(aesKey), Encoding.UTF8.GetBytes(aesIV));
+            var decryptedCpf = Decrypt(Cpf, Encoding.UTF8.GetBytes(aesKey));
             return decryptedCpf;
         }
 
         // implementar criptografia AES com IV e key
-        public static string Encrypt(string plainText, byte[] key, byte[] iv)
+        public string Encrypt(string plainText, byte[] key)
         {
-            using var aes = Aes.Create();
-            aes.Mode = CipherMode.CBC;
-            aes.Padding = PaddingMode.PKCS7;
-            aes.Key = key;
-            aes.IV = iv;
 
-            using var memoryStream = new MemoryStream();
-            memoryStream.Write(iv, 0, iv.Length);
-
-            using (var encryptor = aes.CreateEncryptor())
-            using (var cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
-            using (var streamWriter = new StreamWriter(cryptoStream))
+            try
             {
-                streamWriter.Write(plainText);
-            }
+                using var aes = Aes.Create();
+                aes.Mode = CipherMode.CBC;
+                aes.Padding = PaddingMode.PKCS7;
+                aes.Key = key;
+                aes.IV = RandomNumberGenerator.GetBytes(IVLength);
 
-            return Convert.ToBase64String(memoryStream.ToArray());
+                using var memoryStream = new MemoryStream();
+                memoryStream.Write(aes.IV, 0, aes.IV.Length);
+
+                using (var encryptor = aes.CreateEncryptor())
+                using (var cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
+                using (var streamWriter = new StreamWriter(cryptoStream))
+                {
+                    streamWriter.Write(plainText);
+                }
+
+                return Convert.ToBase64String(memoryStream.ToArray());
+            }
+            catch (CryptographicException ex)
+            {
+                _logger.LogError(ex, "Erro ao criptografar: ");
+                throw new Exception("Erro ao criptografar:");
+            }
         }
 
-        public static string Decrypt(string cypherText, byte[] key, byte[] IV)
+        public string Decrypt(string cypherText, byte[] key)
         {
             try
             {
+                byte[] IV = new byte[IVLength];
                 byte[] cipherData = Convert.FromBase64String(cypherText);
 
                 if (cipherData.Length < IV.Length)
@@ -72,9 +88,10 @@ namespace Cineflow.utils
                 return reader.ReadToEnd();
 
             }
-            catch (Exception ex)
+            catch (CryptographicException ex)
             {
-                throw new Exception("Erro ao descriptografar: " + ex.Message);
+                _logger.LogError(ex, "Erro ao descriptografar: ");
+                throw new Exception("Erro ao descriptografar: ");
             }
 
         }
