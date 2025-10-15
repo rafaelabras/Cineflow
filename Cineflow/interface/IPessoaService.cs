@@ -1,4 +1,4 @@
-﻿namespace Cineflow.commons.@interface
+﻿namespace Cineflow.@interface
 {
     public interface IPessoaService
     {

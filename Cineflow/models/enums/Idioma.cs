@@ -1,4 +1,4 @@
-﻿namespace Cineflow.enums
+﻿namespace Cineflow.models.enums
 {
     public enum Idioma
     {

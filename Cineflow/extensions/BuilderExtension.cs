@@ -1,4 +1,4 @@
-﻿namespace Cineflow.helpers
+﻿namespace Cineflow.extensions
 {
     public static class BuilderExtension
     {
