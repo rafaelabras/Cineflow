@@ -1,4 +1,4 @@
-using Cineflow.extensions;
+using Cineflow.helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.AddBuilderExtensions();
@@ -6,6 +6,5 @@ builder.AddBuilderExtensions();
 var app = builder.Build();
 app.UseArchitectures();
 
-app.MapGet("/", () => "Hello World!");
 
 app.Run();

@@ -1,4 +1,4 @@
-﻿using Cineflow.enums;
+﻿using Cineflow.models.enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace Cineflow.models.cinema
@@ -19,7 +19,7 @@ namespace Cineflow.models.cinema
         [Required]
         private DateTime? horario_inicio { get; set; }
         [Required]
-        private DateTime? horario_fim { get; set; } = horario_inico + duracao;
+        private DateTime? horario_fim { get; set; }
         [Required]
         private decimal? preco_sessao { get; set; }
         
