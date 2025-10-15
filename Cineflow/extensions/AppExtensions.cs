@@ -1,4 +1,4 @@
-﻿namespace Cineflow.extensions
+﻿namespace Cineflow.helpers
 {
     public static class AppExtensions
     {

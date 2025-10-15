@@ -1,4 +1,4 @@
-﻿using Cineflow.enums;
+﻿using Cineflow.models.enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace Cineflow.models.cinema

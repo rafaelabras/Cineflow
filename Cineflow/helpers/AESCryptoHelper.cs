@@ -5,12 +5,12 @@ using System.Text;
 namespace Cineflow.utils
 {
     // Criptografia AES Simetrica para o CPF, para senha sera utilizado o bcrypt *não simetrica*
-    public class CryptoHelper
+    public class AESCryptoHelper
     {
         string aesKey = Environment.GetEnvironmentVariable("AES_KEY");
         const int IVLength = 16; // AES block size em bytes
-        private readonly ILogger<CryptoHelper> _logger;
-        public CryptoHelper(ILogger<CryptoHelper> logger)
+        private readonly ILogger<AESCryptoHelper> _logger;
+        public AESCryptoHelper(ILogger<AESCryptoHelper> logger)
         {
             _logger = logger;
         }
@@ -29,8 +29,7 @@ namespace Cineflow.utils
 
         // implementar criptografia AES com IV e key
         public string Encrypt(string plainText, byte[] key)
-        {
-
+        { 
             try
             {
                 using var aes = Aes.Create();

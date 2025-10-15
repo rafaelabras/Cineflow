@@ -7,6 +7,7 @@ public static class ClientEndpoints
 {
     public static void MapClientEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapPost("/clientes", async (Cliente cliente)
+        app.MapPost("/clientes", async (Cliente cliente, )
+            
     }
 }

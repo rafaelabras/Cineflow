@@ -1,4 +1,4 @@
-using Cineflow.extensions;
+using Cineflow.helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.AddBuilderExtensions();

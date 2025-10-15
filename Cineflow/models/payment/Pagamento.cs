@@ -1,5 +1,5 @@
-﻿using Cineflow.enums;
-using Cineflow.models.cinema;
+﻿using Cineflow.models.cinema;
+using Cineflow.models.enums;
 using System;
 using System.ComponentModel.DataAnnotations;
 

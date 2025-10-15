@@ -1,6 +1,8 @@
-﻿namespace Cineflow.services
+﻿namespace Cineflow.commons.@interface
 {
-    public interface IClienteService
+    public interface IPessoaService
     {
+
+
     }
 }
