@@ -3,7 +3,7 @@
     public class ServiceResponse<T>
     {
         public bool IsSuccess { get; }
-        public string? Message { get; }
+        public string? Message { get; } = string.Empty;
         public T? Data { get; }
 
         public ServiceResponse(bool _IsSuccess, string _Message, T _Data)
@@ -13,9 +13,9 @@
           Data = _Data;
         }
 
-        public static ServiceResponse<T> Ok(T value)
+        public static ServiceResponse<T> Ok(T value, string message = " ")
         {
-            return new ServiceResponse<T>(true, null, value);
+            return new ServiceResponse<T>(true, message, value);
         }
         public static ServiceResponse<T> Fail(string error)
         {
