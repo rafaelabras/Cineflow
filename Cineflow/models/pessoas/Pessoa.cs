@@ -6,8 +6,9 @@ namespace Cineflow.models.pessoas
     {
         [Key]
         [Required]
-        private string Id { get; set; } // o id é o cpf
+        private string? ID { get; set; }  // o id é o cpf
         [Required]
+        [Length(10, 40)]
         private string? name { get; set; }
         [Required]
         [EmailAddress]

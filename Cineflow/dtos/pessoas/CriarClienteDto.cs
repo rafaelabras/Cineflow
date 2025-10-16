@@ -2,23 +2,25 @@
 
 namespace Cineflow.dtos.pessoas
 {
-    public class CriarPessoaDto
+    public class CriarClienteDto
     {
         [Key]
         [Required]
         internal string Id { get; set; } // o id é o cpf
         [Required]
-        private string? name { get; set; }
+        [Length(10, 40)]
+        internal string? name { get; set; }
         [Required]
         [EmailAddress]
-        private string? email { get; set; }
+        internal string? email { get; set; }
         [Required]
+        [Length(10, 50)]
         internal string? senha { get; set; }
         [Required]
-        private DateTime? data_nascimento { get; set; }
+        internal DateTime? data_nascimento { get; set; }
         [Required]
         [Phone]
-        private string? telefone { get; set; }
+        internal string? telefone { get; set; }
 
 
     }

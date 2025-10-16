@@ -1,13 +1,20 @@
-﻿using Cineflow.models.pessoas;
-using CineFlow.Services;
+﻿using Cineflow.dtos.pessoas;
+using Cineflow.models.pessoas;
 
 namespace CineFlow.Endpoints;
 
-public static class ClientEndpoints
+public static class PessoaEndpoints
 {
-    public static void MapClientEndpoints(this IEndpointRouteBuilder app)
+    public static void MapPessoaEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapPost("/clientes", async (Cliente cliente, )
+        app.MapPost("/pessoa", async (CriarPessoaDto pessoa) => 
+        {
             
+
+
+            // Lógica para criar um novo cliente
+            return Results.Created($"/clientes/{cliente.Id}", cliente);
+        });
+
     }
 }

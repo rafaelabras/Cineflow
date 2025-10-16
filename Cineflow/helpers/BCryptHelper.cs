@@ -14,7 +14,7 @@ namespace Cineflow.helpers
             _logger = logger;
         }
 
-        public string EncryptPassword(CriarPessoaDto dto)
+        public string EncryptPassword(CriarClienteDto dto)
         {
             try
             {
@@ -29,7 +29,7 @@ namespace Cineflow.helpers
 
         }   
 
-        public void VerifyPassword(CriarPessoaDto dto)
+        public void VerifyPassword(CriarClienteDto dto)
         {
             try
             {
