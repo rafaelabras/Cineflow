@@ -15,9 +15,9 @@ namespace Cineflow.utils
             _logger = logger;
         }
 
-        public string EncryptAesCpf(CriarClienteDto Pessoa)
+        public string EncryptAesCpf(string Cpf)
         {
-            var encryptedCpf = Encrypt(Pessoa.Id, Encoding.UTF8.GetBytes(aesKey));
+            var encryptedCpf = Encrypt(Cpf, Encoding.UTF8.GetBytes(aesKey));
             return encryptedCpf;
         }
 

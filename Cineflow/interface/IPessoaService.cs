@@ -1,4 +1,6 @@
-﻿using Cineflow.dtos.pessoas;
+﻿using Cineflow.commons;
+using Cineflow.dtos.pessoas;
+using Cineflow.helpers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cineflow.@interface
@@ -6,7 +8,7 @@ namespace Cineflow.@interface
     public interface IPessoaService
     {
         // define os métodos que a implementação do serviço deve ter
-        bool ValidarUsuario(CriarPessoaDto pessoa);
+        Result<RetornarClienteDto> ValidarUsuario(CriarClienteDto pessoa);
 
 
     }

@@ -3,7 +3,7 @@
     public class Result<T>
     {
         public bool IsSuccess { get; }
-        public string? Error { get; } // erro se trata de uma mensagem tecnica para debug
+        public string? Error { get; } 
         public T? Value { get; }
 
         public Result(bool _IsSuccess, string _Error, T _Value)

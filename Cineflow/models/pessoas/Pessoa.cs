@@ -1,25 +1,30 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
 
 namespace Cineflow.models.pessoas
 {
     public class Pessoa
     {
+
+
         [Key]
         [Required]
-        private string? ID { get; set; }  // o id é o cpf
+        public Guid ID { get; set; }
+        [Required]
+        public string? CPF { get; set; }  // o id é o cpf
         [Required]
         [Length(10, 40)]
-        private string? name { get; set; }
+        public string? name { get; set; }
         [Required]
         [EmailAddress]
-        private string? email { get; set; }
+        public string? email { get; set; }
         [Required]
-        private string? senhaHash { get; set; }
+        public string? senhaHash { get; set; }
         [Required]
-        private DateTime? data_nascimento { get; set; }
+        public DateTime? data_nascimento { get; set; }
         [Required]
         [Phone]
-        private string? telefone { get; set; }
+        public string? telefone { get; set; }
 
 
     }

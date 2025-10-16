@@ -1,19 +1,29 @@
-﻿using Cineflow.dtos.pessoas;
+﻿using Cineflow.commons;
+using Cineflow.dtos.pessoas;
+using Cineflow.extensions;
+using Cineflow.@interface;
 using Cineflow.models.pessoas;
+using Cineflow.services;
+using System.Runtime.CompilerServices;
 
 namespace CineFlow.Endpoints;
 
 public static class PessoaEndpoints
 {
+
     public static void MapPessoaEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapPost("/pessoa", async (CriarPessoaDto pessoa) => 
+
+        app.MapPost("/pessoa", async (IPessoaService _pessoaService,CriarClienteDto pessoa) => 
         {
-            
+            var result = _pessoaService.ValidarUsuario(pessoa);
 
+            if (!result.IsSuccess)
+            {
+                return result.ToActionResult(result.Error, null, System.Net.HttpStatusCode.BadRequest);
+            }
 
-            // Lógica para criar um novo cliente
-            return Results.Created($"/clientes/{cliente.Id}", cliente);
+            return result.ToActionResult(null, "Usuário criado com sucesso", System.Net.HttpStatusCode.Created);
         });
 
     }

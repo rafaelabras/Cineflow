@@ -14,11 +14,11 @@ namespace Cineflow.helpers
             _logger = logger;
         }
 
-        public string EncryptPassword(CriarClienteDto dto)
+        public string HashPassword(string Senha)
         {
             try
             {
-                var hashedPassword = BCrypt.Net.BCrypt.EnhancedHashPassword(dto.senha, 13);
+                var hashedPassword = BCrypt.Net.BCrypt.EnhancedHashPassword(Senha, 13);
                 return hashedPassword;
             }
             catch (Exception e)
@@ -29,11 +29,11 @@ namespace Cineflow.helpers
 
         }   
 
-        public void VerifyPassword(CriarClienteDto dto)
+        public void VerifyPassword(String Senha)
         {
             try
             {
-            bool SenhaCorreta = BCrypt.Net.BCrypt.EnhancedVerify(dto.Id, "hash senha");
+            bool SenhaCorreta = BCrypt.Net.BCrypt.EnhancedVerify(Senha, "hash senha");
             }
             catch (Exception e)
             {
