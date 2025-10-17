@@ -8,6 +8,8 @@ using System.Runtime.CompilerServices;
 
 namespace CineFlow.Endpoints;
 
+
+// Toda pessoa é criada automaticamente como um cliente
 public static class PessoaEndpoints
 {
 

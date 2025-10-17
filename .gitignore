@@ -108,6 +108,9 @@ config/local/
 *.cert
 *.bak.json
 *.generated.cs
+appsettings.json
+*/appsettings.json
+appsettings.Development.json 
 
 
 ehthumbs.db
