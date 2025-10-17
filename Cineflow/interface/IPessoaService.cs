@@ -8,7 +8,7 @@ namespace Cineflow.@interface
     public interface IPessoaService
     {
         // define os métodos que a implementação do serviço deve ter
-        Result<RetornarClienteDto> ValidarUsuario(CriarClienteDto pessoa);
+        Task<Result<RetornarClienteDto>> AddClienteAsync(CriarClienteDto pessoa);
 
 
     }

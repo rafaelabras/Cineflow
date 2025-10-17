@@ -16,6 +16,8 @@ namespace Cineflow.models.pessoas
         [Length(10, 40)]
         public string? name { get; set; }
         [Required]
+        public string? genero { get; set; }
+        [Required]
         [EmailAddress]
         public string? email { get; set; }
         [Required]

@@ -7,6 +7,7 @@ using System.Text;
 using Cineflow.models.pessoas;
 using Cineflow.utils;
 using Cineflow.helpers;
+using Cineflow.@interface.IPessoaRepository;
 
 namespace Cineflow.services
 {
@@ -14,7 +15,14 @@ namespace Cineflow.services
     {
         private readonly AESCryptoHelper aesCryptoHelper;
         private readonly BCryptHelper bcryptHelper;
-        public Result<RetornarClienteDto> ValidarUsuario(CriarClienteDto dto)
+        private readonly IPessoaRepository _pessoaRepository;
+        public PessoaService(IPessoaRepository pessoaRepository, BCryptHelper _bcrypthelper, AESCryptoHelper _aesCryptoHelper)
+        {
+            aesCryptoHelper = _aesCryptoHelper;
+            bcryptHelper = _bcrypthelper;
+            _pessoaRepository = pessoaRepository; 
+        }
+        public async Task<Result<RetornarClienteDto>> AddClienteAsync(CriarClienteDto dto)
         {
             ClienteModelValidator validator = new ClienteModelValidator();
             var result = validator.Validate(dto);
@@ -39,17 +47,21 @@ namespace Cineflow.services
                 ID = Guid.NewGuid(),
                 name = dto.name,
                 CPF = cpfCriptografado,
+                genero = dto.genero,
                 senhaHash = senhaHash,
                 email = dto.email,
                 data_nascimento = dto.data_nascimento,
                 telefone = dto.telefone
             };
 
+            var addCliente = await _pessoaRepository.AddAsyncCliente(cliente);
+
             return Result<RetornarClienteDto>.Success(new RetornarClienteDto
             {
                 ID = cliente.ID,
                 name = dto.name,
                 email = dto.email,
+                genero = dto.genero,
                 data_nascimento = dto.data_nascimento,
                 telefone = dto.telefone
             }

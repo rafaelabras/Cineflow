@@ -4,6 +4,7 @@ using Cineflow.extensions;
 using Cineflow.@interface;
 using Cineflow.models.pessoas;
 using Cineflow.services;
+using Microsoft.AspNetCore.Mvc;
 using System.Runtime.CompilerServices;
 
 namespace CineFlow.Endpoints;
@@ -16,9 +17,9 @@ public static class PessoaEndpoints
     public static void MapPessoaEndpoints(this IEndpointRouteBuilder app)
     {
 
-        app.MapPost("/pessoa", async (IPessoaService _pessoaService,CriarClienteDto pessoa) => 
+        app.MapPost("/pessoa", async ([FromServices] IPessoaService _pessoaService,[FromBody] CriarClienteDto pessoa) => 
         {
-            var result = _pessoaService.ValidarUsuario(pessoa);
+            var result = await _pessoaService.AddClienteAsync(pessoa);
 
             if (!result.IsSuccess)
             {
@@ -27,6 +28,8 @@ public static class PessoaEndpoints
 
             return result.ToActionResult(null, "Usuário criado com sucesso", System.Net.HttpStatusCode.Created);
         });
+
+        app.MapGet("/", () => "Hello world!");
 
     }
 }

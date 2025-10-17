@@ -7,18 +7,20 @@ namespace Cineflow.dtos.pessoas
 
         [Key]
         [Required]
-        internal Guid? ID { get; set; }
+        public Guid? ID { get; set; }
         [Required]
         [Length(10, 40)]
-        internal string? name { get; set; }
+        public string? name { get; set; }
+        [Required]
+        public string? genero { get; set; }
         [Required]
         [EmailAddress]
-        internal string? email { get; set; }
+        public string? email { get; set; }
         [Required]
-        internal DateTime? data_nascimento { get; set; }
+        public DateTime? data_nascimento { get; set; }
         [Required]
         [Phone]
-        internal string? telefone { get; set; }
+        public string? telefone { get; set; }
 
 
     }

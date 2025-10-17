@@ -13,7 +13,7 @@ namespace Cineflow.validators
                 .Length(11).WithMessage("O CPF deve ter 11 caracteres")
                 .Matches(@"^\d{11}$").WithMessage("O CPF deve conter apenas números, não inclua ponto nem hífen ");
 
-            RuleFor(c => c.name).NotEmpty().WithMessage("É necessário inserir seu nome").MinimumLength(40)
+            RuleFor(c => c.name).NotEmpty().WithMessage("É necessário inserir seu nome").MinimumLength(10)
                 .WithMessage("O nome deve ter no mínimo 10 caracteres").MaximumLength(40)
                 .WithMessage("O nome não pode ter mais de 50 caracteres");
 

@@ -8,7 +8,7 @@ namespace Cineflow.helpers
         // o bcrypt é uma função de hash adaptativa para senhas, projetada para ser computacionalmente intensiva para proteger contra ataques de força bruta e rainbow tables através do uso de sal (salt) e um fator de custo ajustável.
         // o salt é gerado internamente pela biblioteca abstraindo a complexidade
 
-        private readonly ILogger<BCryptHelper> _logger;
+        private readonly ILogger<BCryptHelper> _logger ;
         public BCryptHelper(ILogger<BCryptHelper> logger)
         {
             _logger = logger;

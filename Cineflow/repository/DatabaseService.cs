@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using Dapper;
 using Microsoft.Data.SqlClient;
+using Npgsql;
 
 namespace Cineflow.repository
 {
@@ -13,7 +14,7 @@ namespace Cineflow.repository
         }
 
         private IDbConnection CreateConnection()
-            => new SqlConnection(_connectionString);
+            => new NpgsqlConnection(_connectionString);
 
         public async Task<IEnumerable<T>> QueryAsync<T>(string sql, object? parameters = null)
         {

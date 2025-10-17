@@ -7,21 +7,23 @@ namespace Cineflow.dtos.pessoas
 
  
         [Required]
-        internal string CPF { get; set; } 
+        public string CPF { get; set; } 
         [Required]
         [Length(10, 40)]
-        internal string? name { get; set; }
+        public string? name { get; set; }
         [Required]
         [EmailAddress]
-        internal string? email { get; set; }
+        public string? email { get; set; }
+        [Required]
+        public string? genero { get; set; }
         [Required]
         [Length(10, 50)]
-        internal string? senha { get; set; }
+        public string? senha { get; set; }
         [Required]
-        internal DateTime? data_nascimento { get; set; }
+        public DateTime? data_nascimento { get; set; }
         [Required]
         [Phone]
-        internal string? telefone { get; set; }
+        public string? telefone { get; set; }
 
 
     }

@@ -14,16 +14,13 @@ namespace Cineflow.extensions
             string? errorMessageUser,
             string? sucessMessageUser,
             HttpStatusCode? overrideStatus = null
-            )
+        )
         {
-
-
             var response = result.IsSuccess 
                 ? ServiceResponse<T>.Ok(result.Value, sucessMessageUser)
                 : ServiceResponse<T>.Fail(errorMessageUser ?? "Ocorreu um erro");
 
             var statusCode = overrideStatus ?? (result.IsSuccess ? HttpStatusCode.OK : HttpStatusCode.BadRequest);
-
 
             if (!overrideStatus.HasValue) {
                 return new ObjectResult("Erro interno do servidor")
@@ -36,8 +33,6 @@ namespace Cineflow.extensions
             {
                 StatusCode = (int)statusCode
             };
-
-
         }
     }
 }
