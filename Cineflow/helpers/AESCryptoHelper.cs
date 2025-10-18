@@ -5,6 +5,7 @@ using System.Text;
 namespace Cineflow.utils
 {
     // Criptografia AES Simetrica para o CPF, para senha sera utilizado o bcrypt *não simetrica*
+    // é necessário definir uma key, exemplo para windows: $Env:AES_KEY="U1JBVFNFRkdaREhKS0xNTk9QUVJTVFVW"
     public class AESCryptoHelper
     {
         string aesKey = Environment.GetEnvironmentVariable("AES_KEY");
@@ -15,9 +16,9 @@ namespace Cineflow.utils
             _logger = logger;
         }
 
-        public string EncryptAesCpf(CriarPessoaDto Pessoa)
+        public string EncryptAesCpf(string Cpf)
         {
-            var encryptedCpf = Encrypt(Pessoa.Id, Encoding.UTF8.GetBytes(aesKey));
+            var encryptedCpf = Encrypt(Cpf, Encoding.UTF8.GetBytes(aesKey));
             return encryptedCpf;
         }
 

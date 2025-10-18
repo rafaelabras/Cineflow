@@ -1,27 +1,24 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
 
-namespace Cineflow.models.pessoas
+namespace Cineflow.dtos.pessoas
 {
-    public class Pessoa
+    public class CriarClienteDto
     {
 
-
-        [Key]
+ 
         [Required]
-        public Guid ID { get; set; }
-        [Required]
-        public string? CPF { get; set; }  // o id é o cpf
+        public string CPF { get; set; } 
         [Required]
         [Length(10, 40)]
         public string? name { get; set; }
         [Required]
-        public string? genero { get; set; }
-        [Required]
         [EmailAddress]
         public string? email { get; set; }
         [Required]
-        public string? senhaHash { get; set; }
+        public string? genero { get; set; }
+        [Required]
+        [Length(10, 50)]
+        public string? senha { get; set; }
         [Required]
         public DateTime? data_nascimento { get; set; }
         [Required]

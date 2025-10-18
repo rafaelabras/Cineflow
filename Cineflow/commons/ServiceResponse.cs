@@ -1,25 +1,30 @@
-﻿namespace Cineflow.commons
+﻿using System.Net;
+
+namespace Cineflow.commons
 {
     public class ServiceResponse<T>
     {
         public bool IsSuccess { get; }
-        public string? Message { get; } = string.Empty;
+        public string? ErrorMessageUser { get; } // mensagem de erro para o user
+        public string? SucessMessageUser { get; } // mensagem de sucesso para o user
         public T? Data { get; }
 
-        public ServiceResponse(bool _IsSuccess, string _Message, T _Data)
+
+        public ServiceResponse(bool _IsSuccess, T _Data, string _ErrorMessageUser, string _SucessMessageUser)
         {
           IsSuccess = _IsSuccess;
-          Message = _Message;
+          ErrorMessageUser  = _ErrorMessageUser;
+          SucessMessageUser = _SucessMessageUser;
           Data = _Data;
         }
 
-        public static ServiceResponse<T> Ok(T value, string message = " ")
+        public static ServiceResponse<T> Ok(T value, string sucessMessageUser)
         {
-            return new ServiceResponse<T>(true, message, value);
+            return new ServiceResponse<T>(true, value, " " ,sucessMessageUser);
         }
-        public static ServiceResponse<T> Fail(string error)
+        public static ServiceResponse<T> Fail(string errorMessageuser)
         {
-            return new ServiceResponse<T>(false, error, default);
+            return new ServiceResponse<T>(false, default , errorMessageuser , " ");
         }
 
     }
