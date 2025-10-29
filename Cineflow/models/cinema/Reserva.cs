@@ -11,7 +11,7 @@ namespace Cineflow.models.cinema
         [Required]
         private string? Id_cliente { get; set; }
         [Required]
-        private Pessoa? cliente { get; set; }
+        private Cliente? cliente { get; set; }
         [Required]
         private string? Id_sessao { get; set; }
         [Required]

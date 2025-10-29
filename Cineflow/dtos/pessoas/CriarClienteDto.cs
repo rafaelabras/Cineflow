@@ -10,7 +10,7 @@ namespace Cineflow.dtos.pessoas
         public string CPF { get; set; } 
         [Required]
         [Length(10, 40)]
-        public string? name { get; set; }
+        public string? nome { get; set; }
         [Required]
         [EmailAddress]
         public string? email { get; set; }

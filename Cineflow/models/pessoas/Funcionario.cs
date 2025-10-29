@@ -1,6 +1,6 @@
 ﻿namespace Cineflow.models.pessoas
 {
-    public class Funcionario : Pessoa
+    public class Funcionario : Cliente
     {
         private string cargo { get; set; }
         private DateTime data_admissao { get; set; }

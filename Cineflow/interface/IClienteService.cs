@@ -5,10 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cineflow.@interface
 {
-    public interface IPessoaService
+    public interface IClienteService
     {
         // define os métodos que a implementação do serviço deve ter
         Task<Result<RetornarClienteDto>> AddClienteAsync(CriarClienteDto pessoa);
+        Task<Result<IEnumerable<RetornarClienteDto>>> ReturnAllClientesAsync();
 
 
     }

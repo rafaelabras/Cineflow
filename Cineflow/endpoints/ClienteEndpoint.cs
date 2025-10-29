@@ -11,13 +11,13 @@ namespace CineFlow.Endpoints;
 
 
 // Toda pessoa é criada automaticamente como um cliente
-public static class PessoaEndpoints
+public static class ClienteEndpoints
 {
 
-    public static void MapPessoaEndpoints(this IEndpointRouteBuilder app)
+    public static void MapClienteEndpoints(this IEndpointRouteBuilder app)
     {
 
-        app.MapPost("/pessoa", async ([FromServices] IPessoaService _pessoaService,[FromBody] CriarClienteDto pessoa) => 
+        app.MapPost("/cliente", async ([FromServices] IClienteService _pessoaService,[FromBody] CriarClienteDto pessoa) => 
         {
             var result = await _pessoaService.AddClienteAsync(pessoa);
 
@@ -29,7 +29,17 @@ public static class PessoaEndpoints
             return result.ToActionResult(null, "Usuário criado com sucesso", System.Net.HttpStatusCode.Created);
         });
 
-        app.MapGet("/", () => "Hello world!");
+        app.MapGet("/allClientes", async ([FromServices] IClienteService _pessoaService) =>
+        {
+            var result = await _pessoaService.ReturnAllClientesAsync();
+            if (!result.IsSuccess)
+            {
+                return result.ToActionResult(result.Error, null, System.Net.HttpStatusCode.BadRequest);
+            }
+
+            return result.ToActionResult(null, "Usuários retornados com sucesso", System.Net.HttpStatusCode.OK);
+
+        });
 
     }
 }
