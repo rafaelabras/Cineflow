@@ -27,5 +27,17 @@ namespace Cineflow.repository
 
             return await _databaseService.QueryAsync<RetornarClienteDto>(sql);
         }
+
+        public async Task<bool> RemoveCliente(string ID)
+        {
+            var sql = @"DELETE FROM pessoa WHERE id = @ID";
+
+            var execute = _databaseService.ExecuteAsync(sql, ID);
+            if (execute.Result == 1)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

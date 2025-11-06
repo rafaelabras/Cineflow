@@ -7,6 +7,7 @@ using System.Text;
 using Cineflow.models.pessoas;
 using Cineflow.utils;
 using Cineflow.helpers;
+using System.Net;
 using System.Collections;
 using Cineflow.@interface.IClienteRepository;
 
@@ -82,6 +83,18 @@ namespace Cineflow.services
                 return Result<IEnumerable<RetornarClienteDto>>.Failure("Nenhum cliente foi Encontrado");
             }
             return Result<IEnumerable<RetornarClienteDto>>.Success(clientes);
+        }
+
+        public async Task<Result<HttpStatusCode>> DeleteClienteAsync(string id)
+        {
+            var cliente = await _pessoaRepository.RemoveCliente(id);
+
+            if (!cliente == true)
+            {
+                return Result<HttpStatusCode>.Failure("Não foi possível deletar o cliente.");
+            }
+            
+            return Result<HttpStatusCode>.Success(HttpStatusCode.NoContent);
         }
 
 

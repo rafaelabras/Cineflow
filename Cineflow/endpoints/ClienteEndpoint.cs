@@ -1,4 +1,5 @@
-﻿using Cineflow.commons;
+﻿using System.Net;
+using Cineflow.commons;
 using Cineflow.dtos.pessoas;
 using Cineflow.extensions;
 using Cineflow.@interface;
@@ -17,17 +18,18 @@ public static class ClienteEndpoints
     public static void MapClienteEndpoints(this IEndpointRouteBuilder app)
     {
 
-        app.MapPost("/cliente", async ([FromServices] IClienteService _pessoaService,[FromBody] CriarClienteDto pessoa) => 
-        {
-            var result = await _pessoaService.AddClienteAsync(pessoa);
-
-            if (!result.IsSuccess)
+        app.MapPost("/cliente",
+            async ([FromServices] IClienteService _pessoaService, [FromBody] CriarClienteDto pessoa) =>
             {
-                return result.ToActionResult(result.Error, null, System.Net.HttpStatusCode.BadRequest);
-            }
+                var result = await _pessoaService.AddClienteAsync(pessoa);
 
-            return result.ToActionResult(null, "Usuário criado com sucesso", System.Net.HttpStatusCode.Created);
-        });
+                if (!result.IsSuccess)
+                {
+                    return result.ToActionResult(result.Error, null, System.Net.HttpStatusCode.BadRequest);
+                }
+
+                return result.ToActionResult(null, "Usuário criado com sucesso", System.Net.HttpStatusCode.Created);
+            });
 
         app.MapGet("/allClientes", async ([FromServices] IClienteService _pessoaService) =>
         {
@@ -41,5 +43,17 @@ public static class ClienteEndpoints
 
         });
 
+        app.MapDelete("/deleteCliente", async ([FromServices] IClienteService _pessoaService,
+            [FromQuery] string idCliente) =>
+        {
+            var result = await _pessoaService.DeleteClienteAsync(idCliente);
+
+            if (!result.IsSuccess)
+            {
+                return result.ToActionResult(result.Error, null, HttpStatusCode.BadRequest);
+            }
+
+            return result.ToActionResult(null, "Delete realizado com sucesso", HttpStatusCode.NoContent);
+        });
     }
 }
