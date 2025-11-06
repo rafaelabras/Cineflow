@@ -52,8 +52,24 @@ public static class ClienteEndpoints
             {
                 return result.ToActionResult(result.Error, null, HttpStatusCode.BadRequest);
             }
+            // verificar amanha a questao do result
 
             return result.ToActionResult(null, "Delete realizado com sucesso", HttpStatusCode.NoContent);
+        });
+
+        app.MapPut("/putCliente", async ([FromServices] IClienteService _pessoaService, [FromBody] CriarClienteDto dto
+            ,[FromQuery] Guid ID) =>
+        {
+            var result = await _pessoaService.PutClienteAsync(ID, dto);
+
+            if (!result.IsSuccess)
+            {
+                return result.ToActionResult(result.Error, null, HttpStatusCode.BadRequest);
+            }
+
+            return result.ToActionResult
+                (null, "Usuario atualizado com sucesso.", HttpStatusCode.OK);
+
         });
     }
 }

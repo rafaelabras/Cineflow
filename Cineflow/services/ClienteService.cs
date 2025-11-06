@@ -97,7 +97,55 @@ namespace Cineflow.services
             return Result<HttpStatusCode>.Success(HttpStatusCode.NoContent);
         }
 
+        public async Task<Result<RetornarClienteDto>> PutClienteAsync(Guid ID, CriarClienteDto dto)
+        {
+            ClienteModelValidator validator = new ClienteModelValidator();
+            var result = validator.Validate(dto);
+
+            if (!result.IsValid)
+            {
+                StringBuilder sb = new StringBuilder();
+                result.Errors.ForEach(error =>
+                {
+                    sb.AppendLine(error.ErrorMessage);
+                });
 
 
+                return Result<RetornarClienteDto>.Failure(sb.ToString());
+            }
+
+            var senhaHash = bcryptHelper.HashPassword(dto.senha);
+            var cpfCriptografado = aesCryptoHelper.EncryptAesCpf(dto.CPF);
+            
+            var cliente = new Cliente
+            {
+                ID = ID,
+                nome = dto.nome,
+                CPF = cpfCriptografado,
+                genero = dto.genero,
+                senhaHash = senhaHash,
+                email = dto.email,
+                data_nascimento = dto.data_nascimento,
+                telefone = dto.telefone
+            };
+            
+            bool resultDatabase = await _pessoaRepository.PutAsyncCliente(cliente);
+
+            if (!resultDatabase == true)
+            {
+                return Result<RetornarClienteDto>.Failure("Não foi possível salvar " +
+                                                          "a atualização de dados do cliente.");
+            }
+
+            return Result<RetornarClienteDto>.Success(new RetornarClienteDto
+            {
+                ID = cliente.ID,
+                nome = dto.nome,
+                email = dto.email,
+                data_nascimento = dto.data_nascimento,
+                genero = dto.genero,
+            });
+
+        }
     }
 }

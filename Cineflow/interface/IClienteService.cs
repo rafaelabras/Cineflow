@@ -14,5 +14,7 @@ namespace Cineflow.@interface
         
         Task<Result<HttpStatusCode>> DeleteClienteAsync(string id);
         
+        Task<Result<RetornarClienteDto>> PutClienteAsync(Guid ID,CriarClienteDto pessoa);
+        
     }
 }

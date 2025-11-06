@@ -9,4 +9,6 @@ namespace Cineflow.@interface.IClienteRepository;
     Task<int> AddAsyncCliente(Cliente cliente);
     Task<IEnumerable<RetornarClienteDto>> ReturnAsyncAllClientes();
     Task<bool> RemoveCliente(string ID);
+    
+    Task<bool> PutAsyncCliente(Cliente cliente);
 }

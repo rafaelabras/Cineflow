@@ -32,8 +32,22 @@ namespace Cineflow.repository
         {
             var sql = @"DELETE FROM pessoa WHERE id = @ID";
 
-            var execute = _databaseService.ExecuteAsync(sql, ID);
-            if (execute.Result == 1)
+            var execute = await _databaseService.ExecuteAsync(sql, ID);
+            if (execute == 1)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public async Task<bool> PutAsyncCliente(Cliente cliente)
+        {
+            var sql = @"UPDATE pessoa SET cpf = @CPF, nome = @nome, email = @email
+               ,genero = @genero, senha = @senha, data_nascimento = @data_nascimento, telefone = @telefone
+               WHERE id = @ID";
+            
+            var result = await _databaseService.ExecuteAsync(sql, cliente);
+            if (result == 1)
             {
                 return true;
             }
