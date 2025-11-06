@@ -53,6 +53,11 @@ public static class ClienteEndpoints
                 return result.ToActionResult(result.Error, null, HttpStatusCode.BadRequest);
             }
             // verificar amanha a questao do result
+            //
+            //
+            //
+            //
+            //
 
             return result.ToActionResult(null, "Delete realizado com sucesso", HttpStatusCode.NoContent);
         });
