@@ -8,31 +8,31 @@ namespace Cineflow.models.cinema
 
         [Key]
         [Required]
-        private int ID { get; set; } 
+        public int ID { get; set; } 
         [Required]
-        private string? nome_filme { get; set; }
+        public string? nome_filme { get; set; }
         [Required]
-        private string? diretor { get; set; }
+        public string? diretor { get; set; }
         [Required]
-        private string? genero { get; set; }
+        public string? genero { get; set; }
         [Required]
-        private int duracao { get; set; }
+        public int duracao { get; set; }
         [Required]
-        private DateTime data_lancamento { get; set; }
+        public DateTime data_lancamento { get; set; }
         [Required]
-        private string? classificacao_indicativa { get; set; }
+        public string? classificacao_indicativa { get; set; }
         [Required]
-        private string? idioma { get; set; }
+        public string? idioma { get; set; }
         [Required]
-        private string? sinopse { get; set; }
+        public string? sinopse { get; set; }
         [Required]
-        private string? produtora { get; set; }
+        public string? produtora { get; set; }
         [Required]
-        private string? pais_origem { get; set; }
+        public string? pais_origem { get; set; }
         [Required]
-        private decimal media_avaliacoes { get; set; }
+        public decimal media_avaliacoes { get; set; }
         [Required]
-        private int numero_avaliacoes { get; set; }
+        public int numero_avaliacoes { get; set; }
 
     }
 }
