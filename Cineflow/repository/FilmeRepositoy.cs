@@ -14,18 +14,23 @@ public class FilmeRepositoy : IFilmeRepository
         _databaseService = databaseService;
     }
 
-    public Task<int> AddFilmeAsync(CriarFilmeDto filme)
+    public async Task<int> AddFilmeAsync(CriarFilmeDto filme)
     {
         var sql = @"INSERT INTO filme(nome_filme, sinopse, genero, duracao, classificacao_etaria, idioma
         , pais_origem, produtor, data_lancamento, diretor)
         VALUES (@nome_filme, @sinopse, @genero,@duracao, @classificacao_indicativa,
                 @idioma, @pais_origem, @produtora, @data_lancamento, @diretor)";
         
-        return _databaseService.ExecuteAsync(sql, filme);
+        var executar = await _databaseService.ExecuteAsync(sql, filme);
+
+        return executar;
     }
 
-    public Task<Result<IEnumerable<Filme>>> GetFilmesAsync()
+    public async Task<IEnumerable<Filme>> GetFilmesAsync()
     {
-        throw new NotImplementedException();
+        var sql = @"SELECT id, nome_filme, sinopse, genero, duracao, classificacao_etaria, idioma
+        ,pais_origem, produtor, data_lancamento, diretor FROM filme";
+
+        return await _databaseService.QueryAsync<Filme>(sql);
     }
 }
