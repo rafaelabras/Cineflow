@@ -26,7 +26,7 @@ public static class FilmeEndpoint
             return verificarDto.ToActionResult(null, "Filme criado com sucesso", HttpStatusCode.Created);
         });
 
-        app.MapGet("/allFilmes", async ([FromServices] IFilmeService filmeService, string? nome_filme,
+        app.MapGet("/filme", async ([FromServices] IFilmeService filmeService, string? nome_filme,
             string? genero,
             string? diretor,
             Idioma? idioma,

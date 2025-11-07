@@ -27,36 +27,15 @@ namespace Cineflow.services
         }
         public async Task<Result<RetornarClienteDto>> AddClienteAsync(CriarClienteDto dto)
         {
-            ClienteModelValidator validator = new ClienteModelValidator();
-            var result = validator.Validate(dto);
+            StringBuilder sb = new StringBuilder();
 
-            if (!result.IsValid)
-            {
-                StringBuilder sb = new StringBuilder();
-                result.Errors.ForEach(error =>
-                {
-                    sb.AppendLine(error.ErrorMessage);
-                });
-
-
+            var validate = validateAndFormatClienteIsSucess(sb, dto);
+            
+            if (!validate)
                 return Result<RetornarClienteDto>.Failure(sb.ToString());
-            }
-
-            var senhaHash = bcryptHelper.HashPassword(dto.senha);
-            var cpfCriptografado = aesCryptoHelper.EncryptAesCpf(dto.CPF);
-
-            var cliente = new Cliente
-            {
-                ID = Guid.NewGuid(),
-                nome = dto.nome,
-                CPF = cpfCriptografado,
-                genero = dto.genero,
-                senhaHash = senhaHash,
-                email = dto.email,
-                data_nascimento = dto.data_nascimento,
-                telefone = dto.telefone
-            };
-
+            
+            var cliente = HashSenhaCryptographyCpf(dto);
+            
             var addCliente = await _pessoaRepository.AddAsyncCliente(cliente);
 
             if (addCliente == 0)
@@ -64,16 +43,7 @@ namespace Cineflow.services
                 return Result<RetornarClienteDto>.Failure("Não foi possível criar o cliente");
             }
 
-            return Result<RetornarClienteDto>.Success(new RetornarClienteDto
-            {
-                ID = cliente.ID,
-                nome = dto.nome,
-                email = dto.email,
-                genero = dto.genero,
-                data_nascimento = dto.data_nascimento,
-                telefone = dto.telefone
-            }
-            );
+            return Result<RetornarClienteDto>.Success(MapToRetornarClienteDto(cliente, dto));
         }
 
         public async Task<Result<IEnumerable<RetornarClienteDto>>> ReturnAllClientesAsync()
@@ -112,27 +82,54 @@ namespace Cineflow.services
 
         public async Task<Result<RetornarClienteDto>> PutClienteAsync(Guid ID, CriarClienteDto dto)
         {
+            
+            StringBuilder sb = new StringBuilder();
+
+            var validate = validateAndFormatClienteIsSucess(sb, dto);
+            
+            if (!validate)
+                return Result<RetornarClienteDto>.Failure(sb.ToString());
+
+            var cliente = HashSenhaCryptographyCpf(dto, ID);
+            
+            bool resultDatabase = await _pessoaRepository.PutAsyncCliente(cliente);
+
+            if (!resultDatabase == true)
+            {
+                return Result<RetornarClienteDto>.Failure("Não foi possível salvar a atualização de dados do cliente.");
+            }
+
+            return Result<RetornarClienteDto>.Success(MapToRetornarClienteDto(cliente, dto));
+
+        }
+        
+        private bool validateAndFormatClienteIsSucess(StringBuilder sb, CriarClienteDto dto)
+        {
             ClienteModelValidator validator = new ClienteModelValidator();
             var result = validator.Validate(dto);
 
             if (!result.IsValid)
             {
-                StringBuilder sb = new StringBuilder();
                 result.Errors.ForEach(error =>
                 {
                     sb.AppendLine(error.ErrorMessage);
                 });
 
 
-                return Result<RetornarClienteDto>.Failure(sb.ToString());
+                return false;
             }
+            return true;
+        }
 
+        private Cliente HashSenhaCryptographyCpf(CriarClienteDto dto, Guid? id = null)
+        {
+            
             var senhaHash = bcryptHelper.HashPassword(dto.senha);
             var cpfCriptografado = aesCryptoHelper.EncryptAesCpf(dto.CPF);
-            
+
             var cliente = new Cliente
             {
-                ID = ID,
+                ID = id ?? Guid.NewGuid(),
                 nome = dto.nome,
                 CPF = cpfCriptografado,
                 genero = dto.genero,
@@ -141,24 +138,22 @@ namespace Cineflow.services
                 data_nascimento = dto.data_nascimento,
                 telefone = dto.telefone
             };
-            
-            bool resultDatabase = await _pessoaRepository.PutAsyncCliente(cliente);
 
-            if (!resultDatabase == true)
-            {
-                return Result<RetornarClienteDto>.Failure("Não foi possível salvar " +
-                                                          "a atualização de dados do cliente.");
-            }
+            return cliente;
+        }
 
-            return Result<RetornarClienteDto>.Success(new RetornarClienteDto
+        private RetornarClienteDto MapToRetornarClienteDto(Cliente cliente, CriarClienteDto dto)
+        {
+            return new RetornarClienteDto
             {
                 ID = cliente.ID,
                 nome = dto.nome,
                 email = dto.email,
                 data_nascimento = dto.data_nascimento,
                 genero = dto.genero,
-            });
-
+                telefone = dto.telefone
+            };
+            
         }
     }
 }
