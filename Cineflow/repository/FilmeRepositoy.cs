@@ -26,6 +26,34 @@ public class FilmeRepositoy : IFilmeRepository
         return executar;
     }
 
+    public async Task<int> PutFilmeAsync(CriarFilmeDto filme)
+    {
+        var sql = @"UPDATE filme nome_filme =  @nome_filme, sinopse = @sinopse, duracao = @duracao,  classificacao_etaria = @classificacao_indicativa,
+        idioma = @idioma, pais_origem = @pais_origem, produtora = @produtora,data_lancamento = @data_lancamento, diretor = @diretor WHERE id = @id";
+        
+        return await _databaseService.ExecuteAsync(sql, filme);
+    }
+
+    public async Task<bool> DeleteFilmeAsync(int ID)
+    {
+        var sql = @"DELETE FROM filme WHERE id = @id";
+
+        var execute = await _databaseService.ExecuteAsync(sql, ID);
+
+        if (execute == 1)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public async Task<IEnumerable<Filme>> GetFilmesByIDAsync(int id)
+    {
+        var sql = @"SELECT * FROM filme WHERE id = @id";
+
+        return await _databaseService.QueryAsync<Filme>(sql, id);
+    }
+
     public async Task<IEnumerable<Filme>> GetFilmesAsync()
     {
         var sql = @"SELECT id, nome_filme, sinopse, genero, duracao, classificacao_etaria, idioma

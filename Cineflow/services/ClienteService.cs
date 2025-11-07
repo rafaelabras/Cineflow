@@ -79,7 +79,7 @@ namespace Cineflow.services
         public async Task<Result<IEnumerable<RetornarClienteDto>>> ReturnAllClientesAsync()
         {
             var clientes = await _pessoaRepository.ReturnAsyncAllClientes();
-            if(clientes.IsNullOrEmpty() == false)
+            if(clientes.IsNullOrEmpty())
             {
                 return Result<IEnumerable<RetornarClienteDto>>.Failure("Nenhum cliente foi Encontrado");
             }
@@ -90,7 +90,7 @@ namespace Cineflow.services
         {
             var cliente = await _pessoaRepository.ReturnAsyncClienteById(id);
             
-            if(cliente.IsNullOrEmpty() == false)
+            if(cliente.IsNullOrEmpty())
             {
                 return Result<IEnumerable<RetornarClienteDto>>.Failure("Nenhum cliente foi Encontrado");
             }
@@ -98,16 +98,16 @@ namespace Cineflow.services
             
         }
 
-        public async Task<Result<HttpStatusCode>> DeleteClienteAsync(string id)
+        public async Task<Result<bool>> DeleteClienteAsync(string id)
         {
             var cliente = await _pessoaRepository.RemoveCliente(id);
 
             if (!cliente == true)
             {
-                return Result<HttpStatusCode>.Failure("Não foi possível deletar o cliente.");
+                return Result<bool>.Failure("Não foi possível deletar o cliente.");
             }
             
-            return Result<HttpStatusCode>.Success(HttpStatusCode.NoContent);
+            return Result<bool>.Success(true);
         }
 
         public async Task<Result<RetornarClienteDto>> PutClienteAsync(Guid ID, CriarClienteDto dto)

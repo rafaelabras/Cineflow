@@ -56,7 +56,7 @@ public static class ClienteEndpoints
             
         });
 
-        app.MapDelete("/deleteCliente", async ([FromServices] IClienteService _pessoaService,
+        app.MapDelete("/ciente", async ([FromServices] IClienteService _pessoaService,
             [FromQuery] string idCliente) =>
         {
             var result = await _pessoaService.DeleteClienteAsync(idCliente);
@@ -65,17 +65,11 @@ public static class ClienteEndpoints
             {
                 return result.ToActionResult(result.Error, null, HttpStatusCode.BadRequest);
             }
-            // verificar amanha a questao do result
-            //
-            //
-            //
-            //
-            //
 
             return result.ToActionResult(null, "Delete realizado com sucesso", HttpStatusCode.NoContent);
         });
 
-        app.MapPut("/putCliente", async ([FromServices] IClienteService _pessoaService, [FromBody] CriarClienteDto dto
+        app.MapPut("/cliente", async ([FromServices] IClienteService _pessoaService, [FromBody] CriarClienteDto dto
             ,[FromQuery] Guid ID) =>
         {
             var result = await _pessoaService.PutClienteAsync(ID, dto);

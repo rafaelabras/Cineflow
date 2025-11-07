@@ -13,7 +13,7 @@ namespace Cineflow.@interface
         Task<Result<IEnumerable<RetornarClienteDto>>> ReturnAllClientesAsync();
         Task<Result<IEnumerable<RetornarClienteDto>>> ReturnClienteByIdAsync(Guid id);
         
-        Task<Result<HttpStatusCode>> DeleteClienteAsync(string id);
+        Task<Result<bool>> DeleteClienteAsync(string id);
         
         Task<Result<RetornarClienteDto>> PutClienteAsync(Guid ID,CriarClienteDto pessoa);
         
