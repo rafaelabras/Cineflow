@@ -1,7 +1,10 @@
 /*** script para iniciar o POSTGRES***/
 
-CREATE TABLE IF NOT EXISTS pessoa (
-    cpf VARCHAR(11) PRIMARY KEY,
+CREATE EXTENSION IF NOT EXISTS "pgcrypto"; 
+
+CREATE TABLE IF NOT EXISTS "pessoa" (
+    id UUID PRIMARY KEY,  
+    cpf VARCHAR(128) UNIQUE NOT NULL,
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     genero VARCHAR(20) NOT NULL,
@@ -12,12 +15,9 @@ CREATE TABLE IF NOT EXISTS pessoa (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS cliente(
-    cpf VARCHAR(11) PRIMARY KEY REFERENCES pessoa(cpf) ON DELETE CASCADE ON UPDATE CASCADE
-);
 
 CREATE TABLE IF NOT EXISTS funcionario (
-    cpf VARCHAR(11) PRIMARY KEY REFERENCES pessoa(cpf) ON DELETE CASCADE ON UPDATE CASCADE,
+    cpf VARCHAR(128) PRIMARY KEY REFERENCES pessoa(cpf) ON DELETE CASCADE ON UPDATE CASCADE,
     data_admissao DATE,
     data_demissao DATE,
     cargo VARCHAR(50) NOT NULL,
@@ -129,7 +129,6 @@ CREATE TABLE IF NOT EXISTS pagamento (
 
 /** indice nas FKS**/
 
-CREATE INDEX idx_cliente_cpf ON cliente(cpf);
 CREATE INDEX idx_funcionario_cpf ON funcionario(cpf);
 CREATE INDEX idx_filme_elenco_filme ON filme_elenco(filme_id);
 CREATE INDEX idx_filme_elenco_elenco ON filme_elenco(elenco_id);
@@ -156,7 +155,6 @@ CREATE INDEX idx_ingresso_qr ON ingresso(codigo_qr);
 
 
 COMMENT ON TABLE pessoa IS 'Tabela base para clientes e funcionários';
-COMMENT ON TABLE cliente IS 'Clientes do cinema que podem fazer reservas';
 COMMENT ON TABLE funcionario IS 'Funcionários do cinema';
 COMMENT ON TABLE filme IS 'Catálogo de filmes disponíveis';
 COMMENT ON TABLE elenco IS 'Atores e atrizes';

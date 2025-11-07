@@ -34,8 +34,6 @@ namespace Cineflow.extensions
             }
 
                 return Results.Json(response, statusCode: (int)statuscode);
-           
-
 
         }
     }

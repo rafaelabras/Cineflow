@@ -1,7 +1,7 @@
 using Cineflow.extensions;
 using Cineflow.helpers;
 using Cineflow.@interface;
-using Cineflow.@interface.IPessoaRepository;
+using Cineflow.@interface.IClienteRepository;
 using Cineflow.repository;
 using Cineflow.services;
 using Cineflow.utils;
@@ -13,8 +13,10 @@ builder.Services.AddSingleton(connectionString);
 builder.Services.AddScoped<DatabaseService>();
 builder.Services.AddScoped<BCryptHelper>();
 builder.Services.AddScoped<AESCryptoHelper>();
-builder.Services.AddScoped<IPessoaRepository, PessoaRepository>();
-builder.Services.AddScoped<IPessoaService, PessoaService>();
+builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+builder.Services.AddScoped<IClienteService, ClienteService>();
+builder.Services.AddScoped<IClienteService, ClienteService>();
+builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 
 builder.AddBuilderExtensions();
 builder.WebHost.UseUrls("http://localhost:5039");
