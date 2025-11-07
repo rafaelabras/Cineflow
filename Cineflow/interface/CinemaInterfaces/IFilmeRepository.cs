@@ -6,8 +6,7 @@ namespace Cineflow.@interface.IClienteRepository;
 
 public interface IFilmeRepository
 {
-    public Task<IEnumerable<Filme>> GetFilmesAsync();
-    public Task<IEnumerable<Filme>> GetFilmesByIDAsync(int ID);
+    public Task<IEnumerable<Filme>> GetFilmesAsync(FilmeFiltroDto filtro);
     public Task<bool> DeleteFilmeAsync(int ID);
     public Task<int> AddFilmeAsync(CriarFilmeDto filme);
     

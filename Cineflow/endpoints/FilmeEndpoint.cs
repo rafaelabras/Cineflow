@@ -3,6 +3,7 @@ using Cineflow.dtos.cinema;
 using Cineflow.extensions;
 using Cineflow.@interface;
 using Cineflow.@interface.CinemaInterfaces;
+using Cineflow.models.enums;
 using Cineflow.models.pessoas;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,9 +26,30 @@ public static class FilmeEndpoint
             return verificarDto.ToActionResult(null, "Filme criado com sucesso", HttpStatusCode.Created);
         });
 
-        app.MapGet("/allFilmes", async ([FromServices] IFilmeService filmeService) =>
+        app.MapGet("/allFilmes", async ([FromServices] IFilmeService filmeService, string? nome_filme,
+            string? genero,
+            string? diretor,
+            Idioma? idioma,
+            string? pais_origem,
+            string? produtora,
+            string? classificacao_indicativa,
+            int duracao,
+            DateTime data_lancamento) =>
         {
-            var filmes = await filmeService.GetFilmesAsync();
+            var filtro = new FilmeFiltroDto
+            {
+                nome_filme = nome_filme,
+                genero = genero,
+                diretor = diretor,
+                idioma = idioma,
+                pais_origem = pais_origem,
+                produtora = produtora,
+                classificacao_indicativa = classificacao_indicativa,
+                duracao = duracao,
+                data_lancamento = data_lancamento
+            };
+            
+            var filmes = await filmeService.GetFilmesAsync(filtro);
 
             if (!filmes.IsSuccess)
             {
@@ -35,17 +57,6 @@ public static class FilmeEndpoint
             }
             
             return filmes.ToActionResult(null, "Filmes encontrados com sucesso", HttpStatusCode.OK);
-        });
-
-        app.MapGet("/filme", async ([FromServices]  IFilmeService filmeService, [FromQuery] int filmeId) =>
-        {
-            var query = await filmeService.GetFilmeByIdAsync(filmeId);
-            if (!query.IsSuccess)
-            {
-                return query.ToActionResult("Nenhum filme foi encontrado.", null, HttpStatusCode.NotFound);
-            }
-            return query.ToActionResult(null,  "Filme encontrado com sucesso", HttpStatusCode.OK);
-
         });
 
         app.MapPut("/filme", async ([FromServices] IFilmeService filmeService, [FromBody] CriarFilmeDto dto) =>

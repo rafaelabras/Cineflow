@@ -33,17 +33,6 @@ public class FilmeService : IFilmeService
       
    }
 
-   public async Task<Result<IEnumerable<Filme>>> GetFilmeByIdAsync(int ID)
-   {
-      var query = await _filmeRepository.GetFilmesByIDAsync(ID);
-
-      if (query.IsNullOrEmpty())
-      {
-         return Result<IEnumerable<Filme>>.Failure("Nenhum filme foi encontrado");
-      }
-      return Result<IEnumerable<Filme>>.Success(query);
-}
-
    public async Task<Result<bool>> DeleteFilmeAsync(int ID)
    {
       var query = await _filmeRepository.DeleteFilmeAsync(ID);
@@ -69,9 +58,9 @@ public class FilmeService : IFilmeService
       return Result<CriarFilmeDto>.Failure("Houve um erro ao atualizar o filme");
    }
 
-   public async Task<Result<IEnumerable<Filme>>> GetFilmesAsync()
+   public async Task<Result<IEnumerable<Filme>>> GetFilmesAsync(FilmeFiltroDto filtro)
    {
-      var filmes = await _filmeRepository.GetFilmesAsync();
+      var filmes = await _filmeRepository.GetFilmesAsync(filtro);
 
       if (filmes.IsNullOrEmpty())
       {
