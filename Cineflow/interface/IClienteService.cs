@@ -11,6 +11,7 @@ namespace Cineflow.@interface
         // define os métodos que a implementação do serviço deve ter
         Task<Result<RetornarClienteDto>> AddClienteAsync(CriarClienteDto pessoa);
         Task<Result<IEnumerable<RetornarClienteDto>>> ReturnAllClientesAsync();
+        Task<Result<IEnumerable<RetornarClienteDto>>> ReturnClienteByIdAsync(Guid id);
         
         Task<Result<HttpStatusCode>> DeleteClienteAsync(string id);
         

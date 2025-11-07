@@ -43,6 +43,19 @@ public static class ClienteEndpoints
 
         });
 
+        app.MapGet("/cliente", async ([FromServices] IClienteService _pessoaService, [FromQuery] Guid id) =>
+        {
+            var result = await _pessoaService.ReturnClienteByIdAsync(id);
+
+            if (!result.IsSuccess)
+            {
+                return result.ToActionResult("Ocorreu um erro ao buscar o cliente.", null, HttpStatusCode.BadRequest);
+            }
+
+            return result.ToActionResult(null, "Cliente encontrado!", HttpStatusCode.OK);
+            
+        });
+
         app.MapDelete("/deleteCliente", async ([FromServices] IClienteService _pessoaService,
             [FromQuery] string idCliente) =>
         {

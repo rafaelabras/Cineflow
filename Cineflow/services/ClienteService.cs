@@ -10,6 +10,7 @@ using Cineflow.helpers;
 using System.Net;
 using System.Collections;
 using Cineflow.@interface.IClienteRepository;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Cineflow.services
 {
@@ -78,11 +79,23 @@ namespace Cineflow.services
         public async Task<Result<IEnumerable<RetornarClienteDto>>> ReturnAllClientesAsync()
         {
             var clientes = await _pessoaRepository.ReturnAsyncAllClientes();
-            if(clientes.Any() == false)
+            if(clientes.IsNullOrEmpty() == false)
             {
                 return Result<IEnumerable<RetornarClienteDto>>.Failure("Nenhum cliente foi Encontrado");
             }
             return Result<IEnumerable<RetornarClienteDto>>.Success(clientes);
+        }
+
+        public async Task<Result<IEnumerable<RetornarClienteDto>>> ReturnClienteByIdAsync(Guid id)
+        {
+            var cliente = await _pessoaRepository.ReturnAsyncClienteById(id);
+            
+            if(cliente.IsNullOrEmpty() == false)
+            {
+                return Result<IEnumerable<RetornarClienteDto>>.Failure("Nenhum cliente foi Encontrado");
+            }
+            return Result<IEnumerable<RetornarClienteDto>>.Success(cliente);
+            
         }
 
         public async Task<Result<HttpStatusCode>> DeleteClienteAsync(string id)

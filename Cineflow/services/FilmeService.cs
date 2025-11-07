@@ -5,6 +5,7 @@ using Cineflow.@interface.CinemaInterfaces;
 using Cineflow.@interface.IClienteRepository;
 using Cineflow.models.cinema;
 using Cineflow.validators;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Cineflow.services;
 
@@ -39,8 +40,15 @@ public class FilmeService : IFilmeService
       return Result<CriarFilmeDto>.Failure("Houve um erro ao criar novo filme");
 }
 
-   public Task<Result<IEnumerable<Filme>>> GetFilmesAsync()
+   public async Task<Result<IEnumerable<Filme>>> GetFilmesAsync()
    {
-      throw new NotImplementedException();
-   }
+      var filmes = await _filmeRepository.GetFilmesAsync();
+
+      if (filmes.IsNullOrEmpty() == false)
+      {
+         return Result<IEnumerable<Filme>>.Failure("Houve um erro ao retornar os filmes.");
+      }
+      
+      return Result<IEnumerable<Filme>>.Success(filmes);
+}
 }

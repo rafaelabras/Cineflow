@@ -28,6 +28,14 @@ namespace Cineflow.repository
             return await _databaseService.QueryAsync<RetornarClienteDto>(sql);
         }
 
+        public async Task<IEnumerable<RetornarClienteDto>> ReturnAsyncClienteById(Guid id)
+        {
+            var sql = @"SELECT id, nome, genero, email, data_nascimento, telefone FROM PESSOA
+             WHERE id = @ID";
+
+            return await _databaseService.QueryAsync<RetornarClienteDto>(sql, id);
+        }
+
         public async Task<bool> RemoveCliente(string ID)
         {
             var sql = @"DELETE FROM pessoa WHERE id = @ID";

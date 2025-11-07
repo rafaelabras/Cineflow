@@ -15,6 +15,8 @@ builder.Services.AddScoped<BCryptHelper>();
 builder.Services.AddScoped<AESCryptoHelper>();
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 builder.Services.AddScoped<IClienteService, ClienteService>();
+builder.Services.AddScoped<IClienteService, ClienteService>();
+builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 
 builder.AddBuilderExtensions();
 builder.WebHost.UseUrls("http://localhost:5039");
