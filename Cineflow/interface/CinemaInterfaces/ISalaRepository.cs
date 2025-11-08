@@ -8,5 +8,6 @@ public interface ISalaRepository
     public Task<int> CreateSalaAsync(CriarSalaDto criarSalaDto);
     public Task<int> DeleteSalaAsync(int id);
     public Task<IEnumerable<Sala>> GetSalasAsync();
+    public Task<IEnumerable<Sala>> GetSalaByIDAsync(int id);
     public Task<int> PutSalaAsync (Sala sala);
 }

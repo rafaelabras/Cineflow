@@ -11,4 +11,6 @@ public interface ISalaService
     public Task<Result<Sala>> CriarSalaAsync(CriarSalaDto criarSalaDto);
     
     public Task<Result<Sala>> PutSalaAsync(int id,CriarSalaDto criarSalaDto);
+    
+    public Task<Result<IEnumerable<Sala>>> GetSalaByIDAsync(int id);
 }

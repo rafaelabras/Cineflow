@@ -42,5 +42,13 @@ public class SalaRepository : ISalaRepository
 
         return await _databaseService.ExecuteAsync(sql, sala);
     }
+
+    public async Task<IEnumerable<Sala>> GetSalaByIDAsync(int id)
+    {
+        var sql = @"SELECT * FROM sala WHERE id = @id";
+        
+        return await _databaseService.QueryAsync<Sala>(sql, id);
+        
+    }
     
 }
