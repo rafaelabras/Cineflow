@@ -8,7 +8,7 @@ public interface IFilmeService
 {
     public Task<Result<IEnumerable<Filme>>> GetFilmesAsync(FilmeFiltroDto filtro);
     public Task<Result<bool>> DeleteFilmeAsync(int ID);
-    public Task<Result<CriarFilmeDto>> CriarFilmeAsync(CriarFilmeDto criarFilmeDto);
+    public Task<Result<Filme>> CriarFilmeAsync(CriarFilmeDto criarFilmeDto);
     
     public Task<Result<CriarFilmeDto>> PutFilmeAsync(int id,CriarFilmeDto criarFilmeDto);
     

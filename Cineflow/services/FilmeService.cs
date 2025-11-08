@@ -17,19 +17,19 @@ public class FilmeService : IFilmeService
       _filmeRepository = filmeRepository;
    }
 
-   public async Task<Result<CriarFilmeDto>> CriarFilmeAsync(CriarFilmeDto criarFilmeDto)
+   public async Task<Result<Filme>> CriarFilmeAsync(CriarFilmeDto criarFilmeDto)
    {
      var result = Validate(criarFilmeDto);
 
      if (!result.IsSuccess)
-         return result;
+        return Result<Filme>.Failure("Não foi possível criar o filme.");
      
       var create = await _filmeRepository.AddFilmeAsync(criarFilmeDto);
 
-      if (create == 1)
-         return result;
+      if (create > 1)
+         return Result<Filme>.Success(fromDtoToFilme(create, criarFilmeDto));
       
-      return Result<CriarFilmeDto>.Failure("Houve um erro ao criar novo filme");
+      return Result<Filme>.Failure("Houve um erro ao criar novo filme");
       
    }
 
@@ -50,20 +50,8 @@ public class FilmeService : IFilmeService
       if (!result.IsSuccess)
          return result;
       
-      var filmeCreate = new Filme
-      { ID = id,
-         nome_filme = filme.nome_filme,
-         sinopse = filme.sinopse,
-         genero = filme.genero,
-         duracao = filme.duracao,
-         classificacao_indicativa = filme.classificacao_indicativa,
-         idioma = filme.idioma,
-         pais_origem = filme.pais_origem,
-         produtora = filme.produtora,
-         data_lancamento = filme.data_lancamento,
-         diretor = filme.diretor,
-         media_avaliacoes = filme.media_avaliacoes,
-         numero_avaliacoes = filme.numero_avaliacoes };
+      var filmeCreate = fromDtoToFilme(id, filme);
+      
      
       var create = await _filmeRepository.PutFilmeAsync(filmeCreate);
 
@@ -84,6 +72,24 @@ public class FilmeService : IFilmeService
       
       return Result<IEnumerable<Filme>>.Success(filmes);
 }
+
+   private Filme fromDtoToFilme(int id, CriarFilmeDto filme)
+   {
+      return new Filme
+         { ID = id,
+            nome_filme = filme.nome_filme,
+            sinopse = filme.sinopse,
+            genero = filme.genero,
+            duracao = filme.duracao,
+            classificacao_indicativa = filme.classificacao_indicativa,
+            idioma = filme.idioma,
+            pais_origem = filme.pais_origem,
+            produtora = filme.produtora,
+            data_lancamento = filme.data_lancamento,
+            diretor = filme.diretor,
+            media_avaliacoes = filme.media_avaliacoes,
+            numero_avaliacoes = filme.numero_avaliacoes };
+      }
 
    private Result<CriarFilmeDto> Validate(CriarFilmeDto criarFilmeDto)
    {

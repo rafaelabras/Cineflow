@@ -21,7 +21,7 @@ public class FilmeRepositoy : IFilmeRepository
         var sql = @"INSERT INTO filme(nome_filme, sinopse, genero, duracao, classificacao_etaria, idioma
         , pais_origem, produtor, data_lancamento, diretor)
         VALUES (@nome_filme, @sinopse, @genero,@duracao, @classificacao_indicativa,
-                @idioma, @pais_origem, @produtora, @data_lancamento, @diretor)";
+                @idioma, @pais_origem, @produtora, @data_lancamento, @diretor) RETURNING id;";
         
         var executar = await _databaseService.ExecuteAsync(sql, filme);
 
