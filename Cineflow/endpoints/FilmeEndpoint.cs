@@ -59,9 +59,9 @@ public static class FilmeEndpoint
             return filmes.ToActionResult(null, "Filmes encontrados com sucesso", HttpStatusCode.OK);
         });
 
-        app.MapPut("/filme", async ([FromServices] IFilmeService filmeService, [FromBody] CriarFilmeDto dto) =>
+        app.MapPut("/filme", async ([FromServices] IFilmeService filmeService, [FromBody] CriarFilmeDto dto, [FromQuery] int filmeId) =>
         {
-            var verificarDto = await filmeService.PutFilmeAsync(dto);
+            var verificarDto = await filmeService.PutFilmeAsync(filmeId, dto);
 
             if (!verificarDto.IsSuccess)
             {

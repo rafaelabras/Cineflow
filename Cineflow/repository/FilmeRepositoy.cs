@@ -28,12 +28,13 @@ public class FilmeRepositoy : IFilmeRepository
         return executar;
     }
 
-    public async Task<int> PutFilmeAsync(CriarFilmeDto filme)
+    public async Task<int> PutFilmeAsync(Filme filmeCreate)
     {
+        
         var sql = @"UPDATE filme nome_filme =  @nome_filme, sinopse = @sinopse, duracao = @duracao,  classificacao_etaria = @classificacao_indicativa,
         idioma = @idioma, pais_origem = @pais_origem, produtora = @produtora,data_lancamento = @data_lancamento, diretor = @diretor WHERE id = @id";
         
-        return await _databaseService.ExecuteAsync(sql, filme);
+        return await _databaseService.ExecuteAsync(sql, filmeCreate);
     }
 
     public async Task<bool> DeleteFilmeAsync(int ID)
@@ -111,10 +112,11 @@ public class FilmeRepositoy : IFilmeRepository
         if (!string.IsNullOrWhiteSpace(filtro.genero))
             sb.Append(" AND genero = @genero ");
             parameters.Add("genero", filtro.genero);
-        
-        if (filtro.duracao != null)
-            sb.Append(" AND duracao = @duracao ");
-            parameters.Add("duracao", filtro.duracao);
-    
+
+            if (filtro.duracao != null)
+            {
+                sb.Append(" AND duracao = @duracao ");
+                parameters.Add("duracao", filtro.duracao);
+            }
     }
 }

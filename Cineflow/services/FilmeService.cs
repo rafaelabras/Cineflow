@@ -43,14 +43,29 @@ public class FilmeService : IFilmeService
       return Result<bool>.Success(true);
    }
 
-   public async Task<Result<CriarFilmeDto>> PutFilmeAsync(CriarFilmeDto criarFilmeDto)
+   public async Task<Result<CriarFilmeDto>> PutFilmeAsync(int id,CriarFilmeDto filme)
    {
-      var result = Validate(criarFilmeDto);
+      var result = Validate(filme);
 
       if (!result.IsSuccess)
          return result;
+      
+      var filmeCreate = new Filme
+      { ID = id,
+         nome_filme = filme.nome_filme,
+         sinopse = filme.sinopse,
+         genero = filme.genero,
+         duracao = filme.duracao,
+         classificacao_indicativa = filme.classificacao_indicativa,
+         idioma = filme.idioma,
+         pais_origem = filme.pais_origem,
+         produtora = filme.produtora,
+         data_lancamento = filme.data_lancamento,
+         diretor = filme.diretor,
+         media_avaliacoes = filme.media_avaliacoes,
+         numero_avaliacoes = filme.numero_avaliacoes };
      
-      var create = await _filmeRepository.PutFilmeAsync(criarFilmeDto);
+      var create = await _filmeRepository.PutFilmeAsync(filmeCreate);
 
       if (create == 1)
          return result;

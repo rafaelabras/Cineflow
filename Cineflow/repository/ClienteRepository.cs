@@ -50,6 +50,11 @@ namespace Cineflow.repository
 
         public async Task<bool> PutAsyncCliente(Cliente cliente)
         {
+            var verify = await VerificarExistencia(cliente.ID);
+            
+            if (!verify)
+                return false;
+            
             var sql = @"UPDATE pessoa SET cpf = @CPF, nome = @nome, email = @email
                ,genero = @genero, senha = @senha, data_nascimento = @data_nascimento, telefone = @telefone
                WHERE id = @ID";
@@ -61,5 +66,18 @@ namespace Cineflow.repository
             }
             return false;
         }
+        private async Task<bool> VerificarExistencia(Guid ID)
+        {
+            var sql = "SELECT id FROM pessoa WHERE id = @id";
+        
+            var result = await _databaseService.QueryAsync<RetornarClienteDto>(sql, ID);
+
+            if (result.Count() > 0)
+            {
+                return true;
+            }
+            return false;
+        }
     }
+    
 }

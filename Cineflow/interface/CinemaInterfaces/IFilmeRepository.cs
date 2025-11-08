@@ -10,6 +10,6 @@ public interface IFilmeRepository
     public Task<bool> DeleteFilmeAsync(int ID);
     public Task<int> AddFilmeAsync(CriarFilmeDto filme);
     
-    public Task<int>  PutFilmeAsync(CriarFilmeDto filme);
+    public Task<int>  PutFilmeAsync(Filme filme);
     
 }
