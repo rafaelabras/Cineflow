@@ -17,16 +17,16 @@ public class SalaRepository : ISalaRepository
     
     public async Task<int> CreateSalaAsync(CriarSalaDto criarSalaDto)
     {
-        var sql = @"INSERT INTO sala(tipo_sala, capacidade, ocupado) VALUES (@nomeSala, @capacidade, @assentos_ocupados) RETURNING id";
+        var sql = @"INSERT INTO sala(tipo_sala, capacidade, ocupado) VALUES (@tipo_sala, @capacidade, @assentos_ocupados) RETURNING id";
 
-        return await _databaseService.ExecuteAsync(sql, criarSalaDto);
+        return await _databaseService.ExecuteScalarAsync<int>(sql, criarSalaDto);
     }
 
     public async Task<int> DeleteSalaAsync(int id)
     {
         var sql = @"DELETE FROM sala WHERE id = @id";
         
-        return await _databaseService.ExecuteAsync(sql, id);
+        return await _databaseService.ExecuteAsync(sql, new {id = id});
     }
 
     public async Task<IEnumerable<Sala>> GetSalasAsync()
@@ -38,7 +38,11 @@ public class SalaRepository : ISalaRepository
 
     public async Task<int> PutSalaAsync(Sala sala)
     {
-        var sql = @"UPDATE sala (tipo_sala, capacidade, ocupada) VALUES (@tipo_sala, @capacidade, @assentos_ocupados) WHERE id = @id";
+        var sql = @"UPDATE sala 
+            SET tipo_sala = @tipo_sala, 
+                capacidade = @capacidade, 
+                ocupado = @assentos_ocupados 
+            WHERE id = @id";
 
         return await _databaseService.ExecuteAsync(sql, sala);
     }
@@ -47,7 +51,7 @@ public class SalaRepository : ISalaRepository
     {
         var sql = @"SELECT * FROM sala WHERE id = @id";
         
-        return await _databaseService.QueryAsync<Sala>(sql, id);
+        return await _databaseService.QueryAsync<Sala>(sql, new {id = id});
         
     }
     

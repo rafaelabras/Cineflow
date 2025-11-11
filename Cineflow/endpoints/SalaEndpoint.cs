@@ -18,7 +18,7 @@ public static class SalaEndpoint
             if (!salaCreate.IsSuccess)
                 return salaCreate.ToActionResult("Não foi possível criar a sala.", null, HttpStatusCode.BadRequest);
             
-            return salaCreate.ToActionResult("Sala criada com sucesso", null, HttpStatusCode.Created);
+            return salaCreate.ToActionResult(null, "Sala criada com sucesso", HttpStatusCode.Created);
         });
 
         app.MapDelete("/sala", async ([FromServices] ISalaService salaService, [FromQuery] int salaId) =>
@@ -27,7 +27,7 @@ public static class SalaEndpoint
             if (!salaDelete.IsSuccess) 
                 return salaDelete.ToActionResult("Não foi possível deletar a sala.", null, HttpStatusCode.NotFound);
             
-            return salaDelete.ToActionResult("Sala deletada com sucesso", null, HttpStatusCode.NoContent);
+            return salaDelete.ToActionResult(null, "Sala deletada com sucesso", HttpStatusCode.NoContent);
         });
 
         app.MapGet("/sala", async ([FromServices] ISalaService salaService) =>
@@ -37,7 +37,7 @@ public static class SalaEndpoint
             if (!sala.IsSuccess)
                 return sala.ToActionResult("Salas não encontradas.", null, HttpStatusCode.NotFound);
             
-            return sala.ToActionResult("Salas encontradas!", null, HttpStatusCode.OK);
+            return sala.ToActionResult(null, "Salas encontradas!", HttpStatusCode.OK);
         });
 
         app.MapGet("/salaId", async([FromServices] ISalaService salaService, [FromQuery] int salaId) =>
@@ -47,7 +47,7 @@ public static class SalaEndpoint
             if (!sala.IsSuccess)
                 return sala.ToActionResult("Não foi possível encontrar a sala.", null, HttpStatusCode.NotFound);
             
-            return sala.ToActionResult("Sala encontrada!", null, HttpStatusCode.OK);
+            return sala.ToActionResult(null , "Sala encontrada!", HttpStatusCode.OK);
         });
         
         app.MapPut("/sala", async([FromServices] ISalaService salaServices, [FromBody] CriarSalaDto updateSala, [FromQuery] int id) =>
@@ -57,7 +57,7 @@ public static class SalaEndpoint
             if (!putSala.IsSuccess)
                 putSala.ToActionResult("Não foi possível  atualizar a sala, verifique a existencia do ID ou os Dados.", null, HttpStatusCode.BadRequest);
             
-            return putSala.ToActionResult("Sala atualizada com sucesso", null, HttpStatusCode.NoContent);
+            return putSala.ToActionResult(null , "Sala atualizada com sucesso", HttpStatusCode.NoContent);
             
         });
 

@@ -23,17 +23,24 @@ public class FilmeRepositoy : IFilmeRepository
         VALUES (@nome_filme, @sinopse, @genero,@duracao, @classificacao_indicativa,
                 @idioma, @pais_origem, @produtora, @data_lancamento, @diretor) RETURNING id;";
         
-        var executar = await _databaseService.ExecuteAsync(sql, filme);
+        var executar = await _databaseService.ExecuteScalarAsync<int>(sql, filme);
 
         return executar;
     }
 
     public async Task<int> PutFilmeAsync(Filme filmeCreate)
     {
-        
-        var sql = @"UPDATE filme nome_filme =  @nome_filme, sinopse = @sinopse, duracao = @duracao,  classificacao_etaria = @classificacao_indicativa,
-        idioma = @idioma, pais_origem = @pais_origem, produtora = @produtora,data_lancamento = @data_lancamento, diretor = @diretor WHERE id = @id";
-        
+        var sql = @"UPDATE filme 
+            SET nome_filme = @nome_filme, 
+                sinopse = @sinopse, 
+                duracao = @duracao,  
+                classificacao_etaria = @classificacao_indicativa,
+                idioma = @idioma, 
+                pais_origem = @pais_origem, 
+                produtora = @produtora,
+                data_lancamento = @data_lancamento, 
+                diretor = @diretor 
+            WHERE id = @id";
         return await _databaseService.ExecuteAsync(sql, filmeCreate);
     }
 
@@ -41,7 +48,7 @@ public class FilmeRepositoy : IFilmeRepository
     {
         var sql = @"DELETE FROM filme WHERE id = @id";
 
-        var execute = await _databaseService.ExecuteAsync(sql, ID);
+        var execute = await _databaseService.ExecuteAsync(sql, new {id = ID});
 
         if (execute == 1)
         {

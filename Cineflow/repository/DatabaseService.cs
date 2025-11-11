@@ -28,5 +28,17 @@ namespace Cineflow.repository
             return await connection.ExecuteAsync(sql, parameters);
         }
 
+        public async Task<T> QuerySingleAsync<T>(string sql, object? parameters = null)
+        {
+            using var connection = CreateConnection();
+            return await connection.QuerySingleAsync<T>(sql, parameters);
+        }
+
+        public async Task<T> ExecuteScalarAsync<T>(string sql, object? parameters = null)
+        {
+            using var connection = CreateConnection();
+            return await connection.ExecuteScalarAsync<T>(sql, parameters);
+        }
+
     }
 }

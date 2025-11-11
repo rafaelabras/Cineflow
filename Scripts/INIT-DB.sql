@@ -58,7 +58,8 @@ CREATE TABLE IF NOT EXISTS filme_elenco (
 CREATE TABLE IF NOT EXISTS sala (
     id SERIAL PRIMARY KEY,
     tipo_sala VARCHAR(50) NOT NULL,
-    capacidade INT NOT NULL
+    capacidade INT NOT NULL,
+    ocupado INT NOT NULL DEFAULT 0
 );
 
 CREATE TABLE IF NOT EXISTS assento(

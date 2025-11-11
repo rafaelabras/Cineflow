@@ -36,9 +36,10 @@ public class SalaService : ISalaService
         var salas = await _salaRepository.GetSalaByIDAsync(id);
         
         if (!salas.IsNullOrEmpty())
-            return Result<IEnumerable<Sala>>.Failure("nenhuma sala encontrada.");
+            return Result<IEnumerable<Sala>>.Success(salas);
         
-        return Result<IEnumerable<Sala>>.Success(salas);
+        
+        return Result<IEnumerable<Sala>>.Failure("nenhuma sala encontrada.");
     }
 
     public async Task<Result<bool>> DeleteSalaAsync(int ID)
