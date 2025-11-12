@@ -37,8 +37,7 @@ public static class FilmeEndpoint
             DateTime data_lancamento) =>
         {
             var filtro = new FilmeFiltroDto
-            {
-                nome_filme = nome_filme,
+            { nome_filme = nome_filme,
                 genero = genero,
                 diretor = diretor,
                 idioma = idioma,
@@ -46,8 +45,7 @@ public static class FilmeEndpoint
                 produtora = produtora,
                 classificacao_indicativa = classificacao_indicativa,
                 duracao = duracao,
-                data_lancamento = data_lancamento
-            };
+                data_lancamento = data_lancamento };
             
             var filmes = await filmeService.GetFilmesAsync(filtro);
 
