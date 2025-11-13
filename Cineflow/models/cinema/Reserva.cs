@@ -1,5 +1,6 @@
 ﻿using Cineflow.models.pessoas;
 using System.ComponentModel.DataAnnotations;
+using Cineflow.models.enums;
 
 namespace Cineflow.models.cinema
 {
@@ -7,19 +8,19 @@ namespace Cineflow.models.cinema
     {
         [Key]
         [Required]
-        private Guid Id { get; set; } = new Guid();
+        public Guid Id { get; set; }
         [Required]
-        private string? Id_cliente { get; set; }
+        public string? Id_cliente { get; set; }
         [Required]
-        private Cliente? cliente { get; set; }
+        public Cliente? cliente { get; set; }
         [Required]
-        private string? Id_sessao { get; set; }
+        public string? Id_sessao { get; set; }
         [Required]
-        private Sessão? sessao { get; set; }
+        public Sessão? sessao { get; set; }
         [Required]
-        private string? confirmada { get; set; } 
+        public StatusReserva? status { get; set; } 
         [Required]
-        private DateTime? data_reserva { get; set; } = DateTime.Now;
+        public DateTime? data_reserva { get; set; } = DateTime.Now;
 
 
     }
