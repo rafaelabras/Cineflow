@@ -10,5 +10,5 @@ public interface IReservaService
     Task<Result<bool>> DeleteReservaAsync(Guid ID);
     Task<Result<Reserva>> CriarReservaAsync(CriarReservaDto criarReservaDto);
     
-    Task<Result<CriarElencoDto>> PutReservaAsync(Guid id,CriarReservaDto criarReservaDto);
+    Task<Result<CriarReservaDto>> PutReservaAsync(Guid id,CriarReservaDto criarReservaDto);
 }
