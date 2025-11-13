@@ -5,10 +5,10 @@ namespace Cineflow.models.cinema
     public class Sala
     {
         [Key]
-        private int Id { get; set; }
-        private string? tipo_sala { get; set; }
-        private int capacidade { get; set; }
-        private int assentos_ocupados { get; set; }
+        public int Id { get; set; }
+        public string? tipo_sala { get; set; }
+        public int capacidade { get; set; }
+        public int assentos_ocupados { get; set; }
 
     }
 }

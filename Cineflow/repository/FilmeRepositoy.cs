@@ -21,26 +21,34 @@ public class FilmeRepositoy : IFilmeRepository
         var sql = @"INSERT INTO filme(nome_filme, sinopse, genero, duracao, classificacao_etaria, idioma
         , pais_origem, produtor, data_lancamento, diretor)
         VALUES (@nome_filme, @sinopse, @genero,@duracao, @classificacao_indicativa,
-                @idioma, @pais_origem, @produtora, @data_lancamento, @diretor)";
+                @idioma, @pais_origem, @produtora, @data_lancamento, @diretor) RETURNING id;";
         
-        var executar = await _databaseService.ExecuteAsync(sql, filme);
+        var executar = await _databaseService.ExecuteScalarAsync<int>(sql, filme);
 
         return executar;
     }
 
-    public async Task<int> PutFilmeAsync(CriarFilmeDto filme)
+    public async Task<int> PutFilmeAsync(Filme filmeCreate)
     {
-        var sql = @"UPDATE filme nome_filme =  @nome_filme, sinopse = @sinopse, duracao = @duracao,  classificacao_etaria = @classificacao_indicativa,
-        idioma = @idioma, pais_origem = @pais_origem, produtora = @produtora,data_lancamento = @data_lancamento, diretor = @diretor WHERE id = @id";
-        
-        return await _databaseService.ExecuteAsync(sql, filme);
+        var sql = @"UPDATE filme 
+            SET nome_filme = @nome_filme, 
+                sinopse = @sinopse, 
+                duracao = @duracao,  
+                classificacao_etaria = @classificacao_indicativa,
+                idioma = @idioma, 
+                pais_origem = @pais_origem, 
+                produtora = @produtora,
+                data_lancamento = @data_lancamento, 
+                diretor = @diretor 
+            WHERE id = @id";
+        return await _databaseService.ExecuteAsync(sql, filmeCreate);
     }
 
     public async Task<bool> DeleteFilmeAsync(int ID)
     {
         var sql = @"DELETE FROM filme WHERE id = @id";
 
-        var execute = await _databaseService.ExecuteAsync(sql, ID);
+        var execute = await _databaseService.ExecuteAsync(sql, new {id = ID});
 
         if (execute == 1)
         {
@@ -111,10 +119,11 @@ public class FilmeRepositoy : IFilmeRepository
         if (!string.IsNullOrWhiteSpace(filtro.genero))
             sb.Append(" AND genero = @genero ");
             parameters.Add("genero", filtro.genero);
-        
-        if (filtro.duracao != null)
-            sb.Append(" AND duracao = @duracao ");
-            parameters.Add("duracao", filtro.duracao);
-    
+
+            if (filtro.duracao != null)
+            {
+                sb.Append(" AND duracao = @duracao ");
+                parameters.Add("duracao", filtro.duracao);
+            }
     }
 }

@@ -37,8 +37,7 @@ public static class FilmeEndpoint
             DateTime data_lancamento) =>
         {
             var filtro = new FilmeFiltroDto
-            {
-                nome_filme = nome_filme,
+            { nome_filme = nome_filme,
                 genero = genero,
                 diretor = diretor,
                 idioma = idioma,
@@ -46,8 +45,7 @@ public static class FilmeEndpoint
                 produtora = produtora,
                 classificacao_indicativa = classificacao_indicativa,
                 duracao = duracao,
-                data_lancamento = data_lancamento
-            };
+                data_lancamento = data_lancamento };
             
             var filmes = await filmeService.GetFilmesAsync(filtro);
 
@@ -59,9 +57,9 @@ public static class FilmeEndpoint
             return filmes.ToActionResult(null, "Filmes encontrados com sucesso", HttpStatusCode.OK);
         });
 
-        app.MapPut("/filme", async ([FromServices] IFilmeService filmeService, [FromBody] CriarFilmeDto dto) =>
+        app.MapPut("/filme", async ([FromServices] IFilmeService filmeService, [FromBody] CriarFilmeDto dto, [FromQuery] int filmeId) =>
         {
-            var verificarDto = await filmeService.PutFilmeAsync(dto);
+            var verificarDto = await filmeService.PutFilmeAsync(filmeId, dto);
 
             if (!verificarDto.IsSuccess)
             {
