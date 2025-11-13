@@ -11,14 +11,7 @@ namespace Cineflow.validators
             RuleFor(e => e.nome)
                 .NotEmpty().WithMessage("O elenco precisa ter um nome.")
                 .MinimumLength(3).WithMessage("O nome deve possuir pelo menos 3 caracteres.");
-
-            RuleFor(e => e.personagem)
-                .NotEmpty().WithMessage("O personagem deve ser informado.")
-                .MinimumLength(3).WithMessage("O nome do personagem deve possuir pelo menos 3 caracteres.");
-
-            RuleFor(e => e.papel)
-                .NotEmpty().WithMessage("O papel deve ser informado.");
-
+            
             RuleFor(e => e.genero)
                 .NotEmpty().WithMessage("O gênero deve ser informado.");
 

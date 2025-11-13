@@ -41,9 +41,9 @@ public class ElencoRepository : IElencoRepository
     public async Task<int> AddElencoAsync(CriarElencoDto dto)
     {
         var sql = @"INSERT INTO elenco(nome, genero, data_nascimento, nacionalidade)
-                  VALUES (@nome, @genero, @data_nascimento, @nacionalidade)";
+                  VALUES (@nome, @genero, @data_nascimento, @nacionalidade) RETURNING id";
         
-        return await _databaseService.ExecuteAsync(sql, dto);
+        return await _databaseService.ExecuteScalarAsync<int>(sql, dto);
     }
 
     public async Task<int> PutElencoAsync(Elenco elenco)
