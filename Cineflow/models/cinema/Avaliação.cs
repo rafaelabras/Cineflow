@@ -7,23 +7,23 @@ namespace Cineflow.models.cinema
     {
         [Key]
         [Required]
-        private int Id { get; set; }
+        public int Id { get; set; }
         [Required]
-        private string? Id_cliente { get; set; }
+        public string? Id_cliente { get; set; }
         [Required]
-        private Cliente? cliente { get; set; }
+        public Cliente? cliente { get; set; }
         [Required]
-        private string? Id_reserva{ get; set; }
+        public string? Id_reserva{ get; set; }
         [Required]
-        private Reserva? reserva { get; set; }
+        public Reserva? reserva { get; set; }
         [Required]
-        private string? id_filme { get; set; }
+        public string? id_filme { get; set; }
         [Required]
-        private Filme? filme { get; set; }
+        public Filme? filme { get; set; }
         [Required]
-        private int nota { get; set; } // de 1 a 5
-        private string? comentario { get; set; }
-        private DateTime data_avaliacao { get; set; } = DateTime.Now;
+        public int nota { get; set; } // de 1 a 5
+        public string? comentario { get; set; }
+        public DateTime data_avaliacao { get; set; }
         public Avaliação()
         {
         }
