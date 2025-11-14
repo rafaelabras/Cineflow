@@ -63,7 +63,7 @@ public class AvaliacaoRepository : IAvaliacaoRepository
     public async Task<int> AddAvaliacaoAsync(CriarAvaliacaoDto dto)
     {
         var sql = @"INSERT INTO avaliacao (filme_id, cliente_id, reserva_id, nota, comentario, data_avaliacao)
-            VALUES (@Id_filme, @Id_cliente, @Id_reserva, @nota, @comentario, @data_avaliacao)";
+            VALUES (@Id_filme, @Id_cliente, @Id_reserva, @nota, @comentario, @data_avaliacao) RETURNING id";
         
         return await _databaseService.ExecuteAsync(sql, dto);
     }
@@ -118,7 +118,7 @@ public class AvaliacaoRepository : IAvaliacaoRepository
         if (filtro.data_avaliacao != DateTime.MinValue)
         {
             sb.Append(" AND DATE(a.data_avaliacao) = @data_avaliacao ");
-            parameters.Add("data_avaliacao", filtro.data_avaliacao.Date);
+            parameters.Add("data_avaliacao", filtro.data_avaliacao.Value);
         }
     }
 

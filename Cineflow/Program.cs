@@ -28,6 +28,8 @@ builder.Services.AddScoped<IReservaService, ReservaServices>();
 builder.Services.AddScoped<IReservaRepository, ReservaRepository>();
 builder.Services.AddScoped<IAssentoRepository, AssentoRepository>();
 builder.Services.AddScoped<IAssentoService, AssentoService>();
+builder.Services.AddScoped<IAvaliacaoRepository, AvaliacaoRepository>();
+builder.Services.AddScoped<IAvaliacaoService, AvaliacaoService>();
 
 
 
