@@ -43,7 +43,6 @@ CREATE TABLE IF NOT EXISTS elenco(
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     genero VARCHAR(20) NOT NULL,
-    personagem VARCHAR(100) NOT NULL,
     data_nascimento DATE NOT NULL,
     nacionalidade VARCHAR(50) NOT NULL
 );
@@ -85,7 +84,7 @@ CREATE TABLE IF NOT EXISTS sessao (
 
 CREATE TABLE IF NOT EXISTS reserva(
     id VARCHAR(64) PRIMARY KEY,
-    cliente_cpf VARCHAR(11) REFERENCES pessoa(cpf) ON DELETE CASCADE ON UPDATE CASCADE,
+    cliente_id VARCHAR(11) REFERENCES pessoa(cpf) ON DELETE CASCADE ON UPDATE CASCADE,
     sessao_id VARCHAR(64) REFERENCES sessao(id) ON DELETE CASCADE ON UPDATE CASCADE,
     status VARCHAR(20) NOT NULL DEFAULT 'pendente'
     CHECK (status IN ('pendente', 'paga', 'cancelada', 'expirado')),

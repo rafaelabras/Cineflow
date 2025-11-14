@@ -22,6 +22,12 @@ builder.Services.AddScoped<ISalaService, SalaService>();
 builder.Services.AddScoped<ISalaRepository, SalaRepository>();
 builder.Services.AddScoped<ISessaoService, SessaoService>();
 builder.Services.AddScoped<ISessaoRepository, SessaoRepository>();
+builder.Services.AddScoped<IElencoService, ElencoService>();
+builder.Services.AddScoped<IElencoRepository, ElencoRepository>();
+builder.Services.AddScoped<IReservaService, ReservaServices>();
+builder.Services.AddScoped<IReservaRepository, ReservaRepository>();
+builder.Services.AddScoped<IAssentoRepository, AssentoRepository>();
+builder.Services.AddScoped<IAssentoService, AssentoService>();
 
 
 

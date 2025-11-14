@@ -8,6 +8,9 @@ namespace Cineflow.extensions
             app.MapClienteEndpoints();
             app.MapFilmeEndpoints();
             app.MapSalaEndpoint();
+            app.MapSessaoEndpoints();
+            app.MapElencoEndpoints();
+            app.MapReservaEndpoints();
         }        
     }
 }

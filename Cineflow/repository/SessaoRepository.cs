@@ -21,10 +21,10 @@ public class SessaoRepository : ISessaoRepository
         
         var sql = @"
             SELECT 
-                s.id, s.horario_inicio, s.horario_fim, s.preco_sessao, s.idioma_audio, s.idioma_legenda,
-                f.id, f.nome_filme, f.sinopse, f.genero, f.duracao, f.classificacao_etaria, f.idioma, f.pais_origem,
+                s.id AS id_sessao, s.horario_inicio, s.horario_fim, s.preco_sessao, s.idioma_audio, s.idioma_legenda,
+                f.id AS id_filme, f.nome_filme, f.sinopse, f.genero, f.duracao, f.classificacao_etaria, f.idioma, f.pais_origem,
                 f.produtor, f.data_lancamento, f.diretor,
-                sa.id, sa.tipo_sala, sa.capacidade, sa.ocupado
+                sa.id AS id_sala, sa.tipo_sala, sa.capacidade, sa.ocupado
             FROM sessao s
             JOIN filme f ON f.id = s.filme_id
             JOIN sala sa ON sa.id = s.sala_id
@@ -41,7 +41,8 @@ public class SessaoRepository : ISessaoRepository
                 sessão.filme = filme;
                 sessão.sala = sala;
                 return sessão;
-            }), "id",parameters);
+            }), "id_filme,id_sala",
+            parameters);
         
         return sessao;
     }
@@ -83,55 +84,55 @@ public class SessaoRepository : ISessaoRepository
 
         if (filtro.ID != null)
         {
-            sb.Append(" AND id = @ID");
+            sb.Append(" AND s.id = @ID");
             parameters.Add("ID", filtro.ID);
         }
 
         if (filtro.Id_filme != null)
         {
-            sb.Append(" AND id_filme = @Id_filme");
+            sb.Append(" AND s.id_filme = @Id_filme");
             parameters.Add("Id_filme", filtro.Id_filme);
         }
 
         if (filtro.Id_sala != null)
         {
-            sb.Append(" AND id_sala = @Id_sala");
+            sb.Append(" AND s.id_sala = @Id_sala");
             parameters.Add("Id_sala", filtro.Id_sala);
         }
 
         if (filtro.data_sessao != null)
         {
-            sb.Append(" AND data_sessao = @data_sessao");
+            sb.Append(" AND s.data_sessao = @data_sessao");
             parameters.Add("data_sessao", filtro.data_sessao);
         }
 
         if (filtro.horario_inicio != null)
         {
-            sb.Append(" AND horario_inicio = @horario_inicio");
+            sb.Append(" AND s.horario_inicio = @horario_inicio");
             parameters.Add("horario_inicio", filtro.horario_inicio);
         }
 
         if (filtro.horario_fim != null)
         {
-            sb.Append(" AND horario_fim = @horario_fim");
+            sb.Append(" AND s.horario_fim = @horario_fim");
             parameters.Add("horario_fim", filtro.horario_fim);
         }
 
         if (filtro.preco_sessao != null)
         {
-            sb.Append(" AND preco_sessao = @preco_sessao");
+            sb.Append(" AND s.preco_sessao = @preco_sessao");
             parameters.Add("preco_sessao", filtro.preco_sessao);
         }
 
         if (filtro.idioma_audio != null)
         {
-            sb.Append(" AND idioma_audio = @idioma_audio");
+            sb.Append(" AND s.idioma_audio = @idioma_audio");
             parameters.Add("idioma_audio", filtro.idioma_audio);
         }
 
         if (filtro.idioma_legenda != null)
         {
-            sb.Append(" AND idioma_legenda = @idioma_legenda");
+            sb.Append(" AND s.idioma_legenda = @idioma_legenda");
             parameters.Add("idioma_legenda", filtro.idioma_legenda);
         }
     }

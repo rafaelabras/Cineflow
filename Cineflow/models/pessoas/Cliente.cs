@@ -10,7 +10,7 @@ namespace Cineflow.models.pessoas
         [Required]
         public Guid ID { get; set; }
         [Required]
-        public string? CPF { get; set; }  // o id é o cpf
+        public string? CPF { get; set; }  
         [Required]
         [Length(10, 40)]
         public string? nome { get; set; }

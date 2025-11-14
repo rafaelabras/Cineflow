@@ -6,12 +6,12 @@ namespace Cineflow.models.cinema
     {
         [Key]
         [Required]
-        private int Id { get; set; }
-        private int Id_sala { get; set; }
-        private Sala? sala { get; set; }
-        private char? fila { get; set; }
-        private int? numero { get; set; }
-        private bool status { get; set; }
+        public int Id { get; set; }
+        public int Id_sala { get; set; }
+        public Sala? sala { get; set; }
+        public char? fila { get; set; }
+        public int? numero { get; set; }
+        public bool status { get; set; }
 
     }
 }

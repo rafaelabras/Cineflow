@@ -6,18 +6,14 @@ namespace Cineflow.models.cinema
     {
         [Key]
         [Required]
-        private int Id { get; set; }
+        public int Id { get; set; }
         [Required]
-        private string? nome { get; set; }
+        public string? nome { get; set; }
         [Required]
-        private string? personagem { get; set; }
+        public string? genero { get; set; }
         [Required]
-        private string? papel { get; set; }
+        public DateTime? data_nascimento { get; set; }
         [Required]
-        private string? genero { get; set; }
-        [Required]
-        private DateTime? data_nascimento { get; set; }
-        [Required]
-        private string? nacionalidade { get; set; }
+        public string? nacionalidade { get; set; }
     }
 }
