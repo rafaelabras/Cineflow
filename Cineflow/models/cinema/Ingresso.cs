@@ -5,26 +5,26 @@ namespace Cineflow.models.cinema
     public class Ingresso
     {
         [Key]
-        private Guid ID { get; set; } = new Guid();
+        public Guid ID { get; set; }
         [Required]
-        private string? Id_sessao { get; set; }
-        private Sessão? sessao { get; set; }
+        public string? Id_sessao { get; set; }
+        public Sessão? sessao { get; set; }
         [Required]
-        private int? Id_assento { get; set; }
-        private Assento? assento { get; set; }
+        public int? Id_assento { get; set; }
+        public Assento? assento { get; set; }
         [Required]
-        private string? Id_reserva { get; set; }
-        private Reserva? reserva { get; set; }
+        public string? Id_reserva { get; set; }
+        public Reserva? reserva { get; set; }
         [Required]
-        private decimal preco { get; set; }
+        public decimal preco { get; set; }
         [Required]
-        private string? codigo_qr { get; set; }
+        public string? codigo_qr { get; set; }
         [Required]
-        private DateTime? data_gerado { get; set; } = DateTime.Now;
+        public DateTime? data_gerado { get; set; } = DateTime.Now;
         [Required]
-        private DateTime? data_validacao { get; set; } = DateTime.Now;
+        public DateTime? data_validacao { get; set; } = DateTime.Now;
         [Required]
-        private Boolean? utilizado { get; set; } = false;
+        public Boolean? utilizado { get; set; } = false;
 
 
     }
