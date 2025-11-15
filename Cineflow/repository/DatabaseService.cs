@@ -68,5 +68,15 @@ namespace Cineflow.repository
             return await connection.QueryAsync(sql, map, parameters, splitOn: splitOn);
         }
 
+        public async Task<IEnumerable<TReturn>> QueryAsyncMultipleObjectsSixJoins<TFirst, TSecond, TThird, TFourth,
+            TFifth,
+            TSixth, TReturn>(string sql,
+            Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn> map,
+            string? splitOn,
+            object? parameters = null)
+        {
+            using var connection = CreateConnection();
+            return await connection.QueryAsync(sql, map, parameters, splitOn: splitOn);
+        }
     }
 }

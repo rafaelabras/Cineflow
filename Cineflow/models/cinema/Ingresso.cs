@@ -13,6 +13,12 @@ namespace Cineflow.models.cinema
         public int? Id_assento { get; set; }
         public Assento? assento { get; set; }
         [Required]
+        public int? Id_sala { get; set; } //
+        public Sala? sala { get; set; } //
+        [Required]
+        public int? Id_filme { get; set; } //
+        public Filme? filme { get; set; } // 
+        [Required]
         public string? Id_reserva { get; set; }
         public Reserva? reserva { get; set; }
         [Required]
