@@ -55,23 +55,18 @@ public class SalaService : ISalaService
     }
 
     public async Task<Result<Sala>> CriarSalaAsync(CriarSalaDto criarSalaDto)
-    {
-     var validate = Validate(criarSalaDto);
+    { 
+        StringBuilder sb = new StringBuilder();
+        var validate = Validate(criarSalaDto, sb);
 
-     if (!validate.IsSuccess)
-         return Result<Sala>.Failure(validate.Error);
+     if (!validate)
+         return Result<Sala>.Failure($"Não foi possível criar a sala, verifique os dados, {sb.ToString()}");
      
      var create = await _salaRepository.CreateSalaAsync(criarSalaDto);
 
      if (create > 0)
      {
-         return Result<Sala>.Success(new Sala
-         {
-             Id = create,
-             tipo_sala = criarSalaDto.tipo_sala,
-             assentos_ocupados = criarSalaDto.assentos_ocupados,
-             capacidade = criarSalaDto.capacidade,
-         });
+         return Result<Sala>.Success(FromSalaDtoToSala(create, criarSalaDto));
      }
      
      return Result<Sala>.Failure("A sala não foi criada.");
@@ -79,16 +74,13 @@ public class SalaService : ISalaService
 
     public async Task<Result<Sala>> PutSalaAsync(int id, CriarSalaDto criarSalaDto)
     {
-        var validate = Validate(criarSalaDto);
+        StringBuilder sb = new StringBuilder();
+        var validate = Validate(criarSalaDto, sb);
         
-        if (!validate.IsSuccess)
-            return Result<Sala>.Failure(validate.Error);
+        if (!validate)
+            return Result<Sala>.Failure($"Não foi possível criar a sala, verifique os dados, {sb.ToString()} ");
 
-        var sala = new Sala
-        { Id = id,
-            tipo_sala = criarSalaDto.tipo_sala,
-            assentos_ocupados = criarSalaDto.assentos_ocupados,
-            capacidade = criarSalaDto.capacidade };
+        var sala = FromSalaDtoToSala(id, criarSalaDto);
 
         var bd = await _salaRepository.PutSalaAsync(sala);
 
@@ -99,19 +91,28 @@ public class SalaService : ISalaService
         
         return Result<Sala>.Failure("A sala não foi criada.");
     }
-    
-    private Result<CriarSalaDto> Validate(CriarSalaDto criarSalaDto) // refatorar
+
+    private Sala FromSalaDtoToSala(int id, CriarSalaDto criarSalaDto)
+    {
+        return new Sala
+        {
+            Id = id,
+            tipo_sala = criarSalaDto.tipo_sala,
+            assentos_ocupados = criarSalaDto.assentos_ocupados,
+            capacidade = criarSalaDto.capacidade,
+        };
+    }
+    private bool Validate(CriarSalaDto criarSalaDto, StringBuilder sb) // refatorar
     {
         SalaModelValidator salaValidator = new SalaModelValidator();
         var result = salaValidator.Validate(criarSalaDto);
 
         if (!result.IsValid)
         {
-            StringBuilder sb = new StringBuilder();
             result.Errors.ForEach(x => sb.AppendLine(x.ErrorMessage));
-
-            return Result<CriarSalaDto>.Failure(sb.ToString());
+            return false;
         }
-        return Result<CriarSalaDto>.Success(criarSalaDto);
+
+        return true;
     }
 }

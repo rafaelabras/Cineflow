@@ -30,6 +30,8 @@ builder.Services.AddScoped<IAssentoRepository, AssentoRepository>();
 builder.Services.AddScoped<IAssentoService, AssentoService>();
 builder.Services.AddScoped<IAvaliacaoRepository, AvaliacaoRepository>();
 builder.Services.AddScoped<IAvaliacaoService, AvaliacaoService>();
+builder.Services.AddScoped<IIngressoRepository, IngressoRepository>();
+builder.Services.AddScoped<IIngressoService, IngressoService>();
 
 
 
