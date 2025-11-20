@@ -100,7 +100,7 @@ public class SalaService : ISalaService
         return Result<Sala>.Failure("A sala não foi criada.");
     }
     
-    private Result<CriarSalaDto> Validate(CriarSalaDto criarSalaDto)
+    private Result<CriarSalaDto> Validate(CriarSalaDto criarSalaDto) // refatorar
     {
         SalaModelValidator salaValidator = new SalaModelValidator();
         var result = salaValidator.Validate(criarSalaDto);
