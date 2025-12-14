@@ -33,14 +33,14 @@ namespace Cineflow.repository
             var sql = @"SELECT id, nome, genero, email, data_nascimento, telefone FROM PESSOA
              WHERE id = @ID";
 
-            return await _databaseService.QueryAsync<RetornarClienteDto>(sql, id);
+            return await _databaseService.QueryAsync<RetornarClienteDto>(sql, new { ID = id });
         }
 
-        public async Task<bool> RemoveCliente(string ID)
+        public async Task<bool> RemoveCliente(string Id)
         {
             var sql = @"DELETE FROM pessoa WHERE id = @ID";
 
-            var execute = await _databaseService.ExecuteAsync(sql, ID);
+            var execute = await _databaseService.ExecuteAsync(sql, new { ID = Id });
             if (execute == 1)
             {
                 return true;
@@ -55,11 +55,23 @@ namespace Cineflow.repository
             if (!verify)
                 return false;
             
-            var sql = @"UPDATE pessoa SET cpf = @CPF, nome = @nome, email = @email
-               ,genero = @genero, senha = @senha, data_nascimento = @data_nascimento, telefone = @telefone
+            var sql = @"UPDATE ONLY pessoa SET cpf = @CPF, nome = @nome, email = @email
+               ,genero = @genero, password_hash = @senha, data_nascimento = @data_nascimento, telefone = @telefone
                WHERE id = @ID";
             
-            var result = await _databaseService.ExecuteAsync(sql, cliente);
+            var parameters = new
+            {
+                CPF = cliente.CPF,
+                nome = cliente.nome,
+                email = cliente.email,
+                genero = cliente.genero,
+                senha = cliente.senhaHash,
+                data_nascimento = cliente.data_nascimento,
+                telefone = cliente.telefone,
+                ID = cliente.ID
+            };
+            
+            var result = await _databaseService.ExecuteAsync(sql, parameters);
             if (result == 1)
             {
                 return true;
@@ -70,7 +82,7 @@ namespace Cineflow.repository
         {
             var sql = "SELECT id FROM pessoa WHERE id = @id";
         
-            var result = await _databaseService.QueryAsync<RetornarClienteDto>(sql, ID);
+            var result = await _databaseService.QueryAsync<RetornarClienteDto>(sql, new { id = ID });
 
             if (result.Count() > 0)
             {

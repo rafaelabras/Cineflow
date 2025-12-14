@@ -11,8 +11,8 @@ namespace Cineflow.services;
 
 public class AssentoService : IAssentoService
 {
-    private readonly AssentoRepository _assentoRepository;
-    public AssentoService(AssentoRepository assentoRepository)
+    private readonly IAssentoRepository _assentoRepository;
+    public AssentoService(IAssentoRepository assentoRepository)
     {
         _assentoRepository = assentoRepository;
     }

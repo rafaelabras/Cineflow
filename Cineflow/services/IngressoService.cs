@@ -11,9 +11,9 @@ namespace Cineflow.services;
 
 public class IngressoService : IIngressoService
 {
-    private readonly IngressoRepository _ingressoRepository;
+    private readonly IIngressoRepository _ingressoRepository;
 
-    public IngressoService(IngressoRepository ingressoRepository)
+    public IngressoService(IIngressoRepository ingressoRepository)
     {
         _ingressoRepository = ingressoRepository;
     }
