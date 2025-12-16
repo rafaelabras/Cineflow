@@ -6,8 +6,20 @@ using Cineflow.@interface.IClienteRepository;
 using Cineflow.repository;
 using Cineflow.services;
 using Cineflow.utils;
+using Elastic.Channels;
+using Elastic.Ingest.Elasticsearch;
+using Elastic.Ingest.Elasticsearch.DataStreams;
+using Elastic.Serilog.Sinks;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((context, services, configuration) =>
+{
+    configuration
+        .ReadFrom.Configuration(context.Configuration)
+        .Enrich.FromLogContext();
+});
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddSingleton(connectionString);
@@ -39,6 +51,7 @@ builder.AddBuilderExtensions();
 builder.WebHost.UseUrls("http://localhost:5039");
 
 var app = builder.Build();
+app.UseSerilogRequestLogging();
 app.UseArchitectures();
 
 
