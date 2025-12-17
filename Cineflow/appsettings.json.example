@@ -1,0 +1,31 @@
+{
+  "Serilog": {
+    "Using": [
+      "Elastic.Serilog.Sinks"
+    ],
+    "MinimumLevel": {
+      "Default": "Information"
+    },
+    "WriteTo": [
+      {
+        "Name": "Elasticsearch",
+        "Args": {
+          "bootstrapMethod": "Silent",
+          "nodes": [
+            "http://elastichost:9200"
+          ],
+          "useSniffing": true,
+          "username": "elastic",
+          "password": "exemplo-minhasenha",
+          "ilmPolicy": "logs-ilm-policy",
+          "dataStream": "logs-dotnet-cineflow",
+          "includeHost": true,
+          "includeUser": true,
+          "includeProcess": true,
+          "includeActivity": true,
+          "debugMode": false
+        }
+      }
+    ]
+  }
+}

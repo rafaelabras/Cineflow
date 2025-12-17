@@ -107,7 +107,7 @@ CREATE TABLE IF NOT EXISTS ingresso (
 CREATE TABLE IF NOT EXISTS avaliacao(
     id SERIAL PRIMARY KEY,
     filme_id INT NOT NULL REFERENCES filme(id) ON DELETE CASCADE, 
-    cliente_cpf VARCHAR(11) NOT NULL REFERENCES pessoa(cpf) ON DELETE CASCADE,
+    cliente_id VARCHAR(11) NOT NULL REFERENCES pessoa(cpf) ON DELETE CASCADE,
     reserva_id VARCHAR(64) NOT NULL REFERENCES reserva(id) ON DELETE CASCADE,
     nota INT CHECK (nota >= 1 AND nota <= 5) NOT NULL,
     comentario VARCHAR(300),

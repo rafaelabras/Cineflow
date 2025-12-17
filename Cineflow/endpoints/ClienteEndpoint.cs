@@ -18,7 +18,7 @@ public static class ClienteEndpoints
     public static void MapClienteEndpoints(this IEndpointRouteBuilder app)
     {
 
-        app.MapPost("/cliente",
+        app.MapPost("/clientes",
             async ([FromServices] IClienteService _pessoaService, [FromBody] CriarClienteDto pessoa) =>
             {
                 var result = await _pessoaService.AddClienteAsync(pessoa);
@@ -43,7 +43,7 @@ public static class ClienteEndpoints
 
         });
 
-        app.MapGet("/cliente", async ([FromServices] IClienteService _pessoaService, [FromQuery] Guid id) =>
+        app.MapGet("/clientes", async ([FromServices] IClienteService _pessoaService, [FromQuery] Guid id) =>
         {
             var result = await _pessoaService.ReturnClienteByIdAsync(id);
 
@@ -56,7 +56,7 @@ public static class ClienteEndpoints
             
         });
 
-        app.MapDelete("/ciente", async ([FromServices] IClienteService _pessoaService,
+        app.MapDelete("/cientes", async ([FromServices] IClienteService _pessoaService,
             [FromQuery] string idCliente) =>
         {
             var result = await _pessoaService.DeleteClienteAsync(idCliente);
@@ -69,7 +69,7 @@ public static class ClienteEndpoints
             return result.ToActionResult(null, "Delete realizado com sucesso", HttpStatusCode.NoContent);
         });
 
-        app.MapPut("/cliente", async ([FromServices] IClienteService _pessoaService, [FromBody] CriarClienteDto dto
+        app.MapPut("/clientes", async ([FromServices] IClienteService _pessoaService, [FromBody] CriarClienteDto dto
             ,[FromQuery] Guid ID) =>
         {
             var result = await _pessoaService.PutClienteAsync(ID, dto);
