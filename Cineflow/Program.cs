@@ -3,6 +3,7 @@ using Cineflow.helpers;
 using Cineflow.@interface;
 using Cineflow.@interface.CinemaInterfaces;
 using Cineflow.@interface.IClienteRepository;
+using Cineflow.middleware;
 using Cineflow.repository;
 using Cineflow.services;
 using Cineflow.utils;
@@ -51,8 +52,8 @@ builder.AddBuilderExtensions();
 builder.WebHost.UseUrls("http://localhost:5039");
 
 var app = builder.Build();
+app.UseMiddleware<GlobalExceptionMiddleware>();
 app.UseSerilogRequestLogging();
 app.UseArchitectures();
-
 
 app.Run();

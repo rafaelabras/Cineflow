@@ -37,6 +37,16 @@ public class LogResultHelper<T>
         }
     }
 
+    public void LogExceptionSql(string acao, object parametros, string sql, Exception ex)
+    {
+        _logger.LogError($"[API LOG] {acao} | Parametros: {parametros} | Sql: {sql} | Exception: {ex.Message}", ex);
+    }
+    
+    public void LogExceptionSqlQueryMap(string acao, object parametros, string sql, object map, Exception ex)
+    {
+        _logger.LogError($"[API LOG] {acao} | Parametros: {parametros} | Map: {map}| Sql: {sql} | Exception: {ex.Message}", ex);
+    }
+    
     public void LogResultSqlOperations(StringBuilder sql, object parameters, int? rowsAffected = null, LogLevel level = LogLevel.Information, string? sqlResult = null)
     {
         switch (level)
